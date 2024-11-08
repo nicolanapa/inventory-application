@@ -26,31 +26,31 @@ CREATE TABLE IF NOT EXISTS publisher (
 
 CREATE TABLE IF NOT EXISTS game_genre (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER FOREIGN KEY,
-    genre_id INTEGER FOREIGN KEY
+    game_id INTEGER REFERENCES game,
+    genre_id INTEGER REFERENCES genre
 );
 
 CREATE TABLE IF NOT EXISTS game_developer (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER FOREIGN KEY,
-    developer_id INTEGER FOREIGN KEY
+    game_id INTEGER REFERENCES game,
+    developer_id INTEGER REFERENCES developer
 );
 
 CREATE TABLE IF NOT EXISTS game_publisher (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER FOREIGN KEY,
-    publisher_id INTEGER FOREIGN KEY
+    game_id INTEGER REFERENCES game,
+    publisher_id INTEGER REFERENCES publisher
 );
 
 CREATE TABLE IF NOT EXISTS game_cost (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER FOREIGN KEY,
+    game_id INTEGER REFERENCES game,
     cost REAL
 );
 
 CREATE TABLE IF NOT EXISTS game_rating (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER FOREIGN KEY,
+    game_id INTEGER REFERENCES game,
     rating REAL
 );
 `;
@@ -70,9 +70,9 @@ async function main() {
             process.env.DB_NAME,
     });
 
-    client.connect();
-    client.query(SQL);
-    client.end();
+    await client.connect();
+    await client.query(SQL);
+    await client.end();
 
     console.log("Created Default Tables");
 }
