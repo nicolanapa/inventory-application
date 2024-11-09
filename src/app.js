@@ -2,10 +2,10 @@ import express from "express";
 import process from "process";
 import url from "url";
 import path from "path";
-import gameRouter from "./routes/game";
-import genreRouter from "./routes/genre";
-import developerRouter from "./routes/developer";
-import publisherRouter from "./routes/publisher";
+import gameRouter from "./routes/game.js";
+import genreRouter from "./routes/genre.js";
+import developerRouter from "./routes/developer.js";
+import publisherRouter from "./routes/publisher.js";
 
 const PORT = process.env.PORT;
 const __filename = url.fileURLToPath(import.meta.url);
