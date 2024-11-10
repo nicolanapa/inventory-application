@@ -26,31 +26,31 @@ CREATE TABLE IF NOT EXISTS publisher (
 
 CREATE TABLE IF NOT EXISTS game_genre (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER REFERENCES game,
-    genre_id INTEGER REFERENCES genre
+    game_id INTEGER REFERENCES game(id),
+    genre_id INTEGER REFERENCES genre(id)
 );
 
 CREATE TABLE IF NOT EXISTS game_developer (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER REFERENCES game,
-    developer_id INTEGER REFERENCES developer
+    game_id INTEGER REFERENCES game(id),
+    developer_id INTEGER REFERENCES developer(id)
 );
 
 CREATE TABLE IF NOT EXISTS game_publisher (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER REFERENCES game,
-    publisher_id INTEGER REFERENCES publisher
+    game_id INTEGER REFERENCES game(id),
+    publisher_id INTEGER REFERENCES publisher(id)
 );
 
 CREATE TABLE IF NOT EXISTS game_cost (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER REFERENCES game,
+    game_id INTEGER REFERENCES game(id),
     cost REAL
 );
 
 CREATE TABLE IF NOT EXISTS game_rating (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    game_id INTEGER REFERENCES game,
+    game_id INTEGER REFERENCES game(id),
     rating REAL
 );
 `;
