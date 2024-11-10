@@ -1,4 +1,4 @@
-import pool from "./pool.js";
+import pool from "../pool.js";
 
 async function getElements(tableToQueryFrom, limit = 30) {
     const { rows } = await pool.query(
