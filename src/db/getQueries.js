@@ -1,15 +1,27 @@
 import pool from "./pool.js";
 
-async function getElement(elementToQuery, limit = 30) {
+async function getElements(elementToQueryFrom, limit = 30) {
     const { rows } = pool.query(
         `
         SELECT * FROM $1
         LIMIT $2;
         `,
-        [elementToQuery, limit],
+        [elementToQueryFrom, limit],
     );
 
     return rows;
 }
 
-export { getElement };
+async function getElement(elementToQueryFrom, conditionName, elementToQuery) {
+    const { rows } = pool.query(
+        `
+        SELECT * FROM $1
+        WHERE $2 = $3
+        `,
+        [elementToQuery, conditionName, elementToQuery],
+    );
+
+    return rows;
+}
+
+export { getElements, getElement };
