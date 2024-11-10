@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as getQuery from "../db/getQueries.js";
+import * as getQuery from "../db/queries/getQueries.js";
 
 const gameRouter = Router();
 
