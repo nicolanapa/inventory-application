@@ -16,7 +16,7 @@ async function getElement(elementToQueryFrom, conditionName, elementToQuery) {
     const { rows } = pool.query(
         `
         SELECT * FROM $1
-        WHERE $2 = $3
+        WHERE $2 = $3;
         `,
         [elementToQuery, conditionName, elementToQuery],
     );
