@@ -3,10 +3,10 @@ import pool from "./pool.js";
 async function getElements(tableToQueryFrom, limit = 30) {
     const { rows } = await pool.query(
         `
-        SELECT * FROM $1
-        LIMIT $2;
+        SELECT * FROM ${tableToQueryFrom}
+        LIMIT $1;
         `,
-        [tableToQueryFrom, limit],
+        [limit],
     );
 
     return rows;
@@ -15,10 +15,10 @@ async function getElements(tableToQueryFrom, limit = 30) {
 async function getElement(tableToQueryFrom, conditionName, elementToQuery) {
     const { rows } = await pool.query(
         `
-        SELECT * FROM $1
-        WHERE $2 = $3;
+        SELECT * FROM ${tableToQueryFrom}
+        WHERE $1 = $2;
         `,
-        [tableToQueryFrom, conditionName, elementToQuery],
+        [conditionName, elementToQuery],
     );
 
     return rows;
@@ -83,10 +83,10 @@ async function getCost(gameId) {
 async function getAllRatings(gameId, selectQuery = "*") {
     const { rows } = await pool.query(
         `
-        SELECT $1 FROM 
-        WHERE game_id = $2;
+        SELECT ${selectQuery} FROM 
+        WHERE game_id = $1;
         `,
-        [selectQuery, gameId],
+        [gameId],
     );
 
     return rows;
