@@ -5,17 +5,17 @@ const Client = pg.Client;
 
 const SQL = `
 INSERT INTO game (game_name)
-VALUES ('Monopolio'), ('X'), ('Double: A Float's Enemy'), ('Clash of Friends'), ('Get Hacked Simulator!');
+VALUES ('Monopolio'), ('X'), ('Double: A Float''s Enemy'), ('Clash of Friends'), ('Get Hacked Simulator!');
 INSERT INTO game (game_name)
-VALUES ('Nothing's Story: NULL'), ('Get Posted'), ('Arrow Fun'), ('Async Sim'), ('Fighting against Error');
+VALUES ('Nothing''s Story: NULL'), ('Get Posted'), ('Arrow Fun'), ('Async Sim'), ('Fighting against Error');
 
 INSERT INTO genre (game_genre)
 VALUES ('Action'), ('Horror'), ('Adventure'), ('Novel'), ('Simulator');
 
 INSERT INTO developer (developer_name)
-VALUES ('DVD Project'), ('Good Dogs'), ('People's Games'), ('World of Many'), ('Games');
+VALUES ('DVD Project'), ('Good Dogs'), ('People''s Games'), ('World of Many'), ('Games');
 
-INSERT INTO publisher (developer_name)
+INSERT INTO publisher (publisher_name)
 VALUES ('Corporation X'), ('AllGames'), ('Front-endo'), ('Software'), ('Epic Warnings');
 
 INSERT INTO game_genre (game_id, genre_id)
@@ -23,7 +23,7 @@ VALUES (1, 3), (5, 5), (1, 1), (2, 4), (3, 1), (3, 2), (3, 3), (4, 4), (6, 2), (
 
 INSERT INTO game_developer (game_id, developer_id)
 VALUES (1, 3), (5, 5), (2, 4), (3, 1), (3, 3), (4, 4), (6, 2), (7, 3), (8, 5), (9, 4), (10, 5);
-/*
+
 INSERT INTO game_publisher (game_id, publisher_id)
 VALUES (1, 3), (5, 5), (2, 4), (3, 1), (4, 4), (6, 2), (7, 3), (8, 5), (9, 4), (10, 5);
 
