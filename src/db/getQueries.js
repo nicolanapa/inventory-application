@@ -1,7 +1,7 @@
 import pool from "./pool.js";
 
 async function getElements(tableToQueryFrom, limit = 30) {
-    const { rows } = pool.query(
+    const { rows } = await pool.query(
         `
         SELECT * FROM $1
         LIMIT $2;
@@ -13,7 +13,7 @@ async function getElements(tableToQueryFrom, limit = 30) {
 }
 
 async function getElement(tableToQueryFrom, conditionName, elementToQuery) {
-    const { rows } = pool.query(
+    const { rows } = await pool.query(
         `
         SELECT * FROM $1
         WHERE $2 = $3;
@@ -27,7 +27,7 @@ async function getElement(tableToQueryFrom, conditionName, elementToQuery) {
 // Remove double code functions once all the Queries get tested better
 
 async function getGameGenre(gameId) {
-    const { rows } = pool.query(
+    const { rows } = await pool.query(
         `
         SELECT game_genre FROM game_genre
         INNER JOIN genre
@@ -41,7 +41,7 @@ async function getGameGenre(gameId) {
 }
 
 async function getGameDeveloper(developerId) {
-    const { rows } = pool.query(
+    const { rows } = await pool.query(
         `
         SELECT developer_name FROM game_developer
         INNER JOIN developer
@@ -55,7 +55,7 @@ async function getGameDeveloper(developerId) {
 }
 
 async function getGamePublisher(publisherId) {
-    const { rows } = pool.query(
+    const { rows } = await pool.query(
         `
         SELECT publisher_name FROM game_publisher
         INNER JOIN publisher
@@ -69,7 +69,7 @@ async function getGamePublisher(publisherId) {
 }
 
 async function getCost(gameId) {
-    const { rows } = pool.query(
+    const { rows } = await pool.query(
         `
         SELECT cost FROM game_cost
         WHERE game_id = $1;
@@ -81,7 +81,7 @@ async function getCost(gameId) {
 }
 
 async function getAllRatings(gameId, selectQuery = "*") {
-    const { rows } = pool.query(
+    const { rows } = await pool.query(
         `
         SELECT $1 FROM 
         WHERE game_id = $2;
