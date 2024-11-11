@@ -18,6 +18,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + "/styles")));
+app.use(express.static(path.join(__dirname + "/icons")));
+
 
 app.get("/", async (req, res) => {
     let mainQuery = {
@@ -46,6 +48,10 @@ app.use("/developer", developerRouter);
 app.use("/publisher", publisherRouter);
 
 app.get("/styles/:file", (req, res) => {
+    res.sendFile(__dirname + req.path);
+});
+
+app.get("/icons/:file", (req, res) => {
     res.sendFile(__dirname + req.path);
 });
 
