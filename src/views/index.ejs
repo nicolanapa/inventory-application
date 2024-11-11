@@ -38,14 +38,35 @@
                             </li>
                         <% } %>
                     </ul>
-                    <ul>
-                        <% games.forEach((game) => {%>
-                            <li>
-                                <%= game.game_name %>
-                            </li>
-                        <% }); %>
-                    </ul>
                 </div>
+            </div>
+
+            <div>
+                <h2>What you should play</h2>
+
+                <ul>
+                    <% let randomGames = []; %>
+
+                    <% for (let i = 0; i < games.length; i++) {
+                        let i2 = Math.floor(Math.random() * games.length);
+
+                        if (!randomGames.includes(i2)) {
+                            randomGames.push(i2);
+                        }
+
+                        if (randomGames.length === 4) {
+                            break;
+                        }
+
+                        
+                    } %>
+
+                    <% for (let i = 0; i < randomGames.length; i++) { %>
+                        <li>
+                            <a href="/game/<%= games[randomGames[i]].id %>"><%= games[randomGames[i]].game_name %></a>
+                        </li>
+                    <% } %>
+                </ul>
             </div>
         </main>
     </body>
