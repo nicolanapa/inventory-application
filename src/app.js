@@ -17,6 +17,7 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname + "/styles")));
 
 app.get("/", async (req, res) => {
     let mainQuery = {
@@ -43,5 +44,9 @@ app.use("/genre", genreRouter);
 app.use("/developer", developerRouter);
 
 app.use("/publisher", publisherRouter);
+
+app.get("/styles/:file", (req, res) => {
+    res.sendFile(__dirname + req.path);
+});
 
 app.listen(PORT);
