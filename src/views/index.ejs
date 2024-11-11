@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Inventory Application</title>
+    </head>
+    <body>
+        <header>
+            <p><a href="/">Home</a></p>
+            <p><a href="/game">Games</a></p>
+            <p><a href="/genre">Genres</a></p>
+            <p><a href="/developer">Developers</a></p>
+            <p><a href="/publisher">Publishers</a></p>
+        </header>
+
+        <main>
+            <div>
+                <h2>Most played Games</h2>
+
+                <ul>
+                    <% games.forEach((game) => {%>
+                        <li>
+                            <%= game.game_name %>
+                        </li>
+                    <% }); %>
+                    </ul>
+            </div>
+
+            <div>
+                <h2>Genres</h2>
+
+                <div>
+                    <ul>
+                        <% for (let i = 0; i < genres.length; i++) { %>
+                            <li>
+                                <a href="/genre/<%= genres[i].id %>"><%= genres[i].game_genre %></a>
+                            </li>
+                        <% } %>
+                    </ul>
+                    <ul>
+                        <% games.forEach((game) => {%>
+                            <li>
+                                <%= game.game_name %>
+                            </li>
+                        <% }); %>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
