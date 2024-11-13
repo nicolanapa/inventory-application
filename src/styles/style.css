@@ -32,7 +32,7 @@ a:visited {
 .list-of-games,
 .list-of-genres {
     display: grid;
-    row-gap: 20px;
+    gap: 10px;
     list-style: none;
     justify-items: center;
 }
