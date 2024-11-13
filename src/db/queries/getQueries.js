@@ -16,9 +16,21 @@ async function getElement(tableToQueryFrom, conditionName, elementToQuery) {
     const { rows } = await pool.query(
         `
         SELECT * FROM ${tableToQueryFrom}
-        WHERE $1 = $2;
+        WHERE ${conditionName} = $1;
         `,
-        [conditionName, elementToQuery],
+        [elementToQuery],
+    );
+
+    return rows;
+}
+
+async function getElementLike(tableToQueryFrom, conditionName, elementToQuery) {
+    const { rows } = await pool.query(
+        `
+        SELECT * FROM ${tableToQueryFrom}
+        WHERE ${conditionName} LIKE $1;
+        `,
+        ["%" + elementToQuery + "%"],
     );
 
     return rows;
@@ -95,6 +107,7 @@ async function getAllRatings(gameId, selectQuery = "*") {
 export {
     getElements,
     getElement,
+    getElementLike,
     getGameGenre,
     getGameDeveloper,
     getGamePublisher,

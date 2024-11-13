@@ -77,31 +77,54 @@ const postAdd = [
         }
 
         const { game_name, game_genre, cost, developer_name, publisher_name } = req.body;
-        const game_id = await getQuery.getElement("game", "game_name", game_name);
 
         await insertQuery.postElement("game", "game_name", game_name);
-        await insertQuery.postRelationTable(
-            "game_genre",
-            "game_id",
-            "genre_id",
-            game_id,
-            game_genre,
-        );
-        await insertQuery.postRelationTable(
-            "game_genre",
-            "game_id",
-            "genre_id",
-            game_id,
-            game_genre,
-        );
+
+        let game_id = await getQuery.getElementLike("game", "game_name", game_name);
+        game_id = game_id[game_id.length - 1].id;
+
+        if (!Array.isArray(game_genre)) {
+            await insertQuery.postRelationTable(
+                "game_genre",
+                "game_id",
+                "genre_id",
+                game_id,
+                game_genre,
+            );
+        } else {
+            for (let i = 0; i < game_genre.length; i++) {
+                await insertQuery.postRelationTable(
+                    "game_genre",
+                    "game_id",
+                    "genre_id",
+                    game_id,
+                    game_genre[i],
+                );
+            }
+        }
+
         await insertQuery.postRelationTable("game_cost", "game_id", "cost", game_id, cost);
-        await insertQuery.postRelationTable(
-            "game_developer",
-            "game_id",
-            "developer_id",
-            game_id,
-            developer_name,
-        );
+
+        if (!Array.isArray(developer_name)) {
+            await insertQuery.postRelationTable(
+                "game_developer",
+                "game_id",
+                "developer_id",
+                game_id,
+                developer_name,
+            );
+        } else {
+            for (let i = 0; i < developer_name.length; i++) {
+                await insertQuery.postRelationTable(
+                    "game_developer",
+                    "game_id",
+                    "developer_id",
+                    game_id,
+                    developer_name[i],
+                );
+            }
+        }
+
         await insertQuery.postRelationTable(
             "game_publisher",
             "game_id",
