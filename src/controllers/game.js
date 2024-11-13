@@ -1,6 +1,6 @@
 import { body, validationResult } from "express-validator";
 import * as getQuery from "../db/queries/getQueries.js";
-import { postGame } from "../db/queries/insertQueries.js";
+import * as insertQuery from "../db/queries/insertQueries.js";
 
 const getIndex = async (req, res) => {
     const listOfGames = await getQuery.getElements("game");
@@ -76,7 +76,40 @@ const postAdd = [
             });
         }
 
-        //await postGame();
+        const { game_name, game_genre, cost, developer_name, publisher_name } = req.body;
+        const game_id = await getQuery.getElement("game", "game_name", game_name);
+
+        await insertQuery.postElement("game", "game_name", game_name);
+        await insertQuery.postRelationTable(
+            "game_genre",
+            "game_id",
+            "genre_id",
+            game_id,
+            game_genre,
+        );
+        await insertQuery.postRelationTable(
+            "game_genre",
+            "game_id",
+            "genre_id",
+            game_id,
+            game_genre,
+        );
+        await insertQuery.postRelationTable("game_cost", "game_id", "cost", game_id, cost);
+        await insertQuery.postRelationTable(
+            "game_developer",
+            "game_id",
+            "developer_id",
+            game_id,
+            developer_name,
+        );
+        await insertQuery.postRelationTable(
+            "game_publisher",
+            "game_id",
+            "publisher_id",
+            game_id,
+            publisher_name,
+        );
+
         res.redirect("/game");
     },
 ];
