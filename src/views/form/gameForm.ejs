@@ -6,6 +6,14 @@
         <title>Game Form</title>
     </head>
     <body>
+        <% if (locals.errors) { %>
+            <ul>
+                <% locals.errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }); %>
+            </ul>
+        <% } %>
+
         <form action="/game/add" method="POST">
             <label for="game-name">Game Name: </label>
             <input type="text" name="game_name" id="game-name" required>
