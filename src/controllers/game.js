@@ -1,3 +1,4 @@
+import { body } from "express-validator";
 import * as getQuery from "../db/queries/getQueries.js";
 import { postGame } from "../db/queries/insertQueries.js";
 
@@ -27,9 +28,14 @@ const getAdd = async (req, res) => {
     });
 };
 
-const postAdd = async (req, res) => {
-    // validation
-    await postGame();
-};
+const addFormValidation = [];
+
+const postAdd = [
+    addFormValidation,
+    async (req, res) => {
+        // validation
+        await postGame();
+    },
+];
 
 export { getIndex, getJson, getAdd, postAdd };
