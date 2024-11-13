@@ -1,43 +1,23 @@
 import pool from "../pool.js";
 
-async function postGame(value) {
+async function postElement(table, columnValue, value) {
     await pool.query(
         `
-        INSERT INTO game (game_name)
-        VALUES ($1);
+        INSERT INTO ${table} ($1)
+        VALUES ($2);
         `,
-        [value],
+        [columnValue, value],
     );
 }
 
-async function postGenre(value) {
+async function postRelationTable(table, columnId1, columnId2, value1, value2) {
     await pool.query(
         `
-        INSERT INTO genre (game_genre)
-        VALUES ($1);
+        INSERT INTO ${table} ($1, $2)
+        VALUES ($3, $4);
         `,
-        [value],
+        [columnId1, columnId2, value1, value2],
     );
 }
 
-async function postDeveloper(value) {
-    await pool.query(
-        `
-        INSERT INTO developer (developer_name)
-        VALUES ($1);
-        `,
-        [value],
-    );
-}
-
-async function postPublisher(value) {
-    await pool.query(
-        `
-        INSERT INTO publisher (publisher_name)
-        VALUES ($1);
-        `,
-        [value],
-    );
-}
-
-export { postGame, postGenre, postDeveloper, postPublisher };
+export { postElement, postRelationTable };
