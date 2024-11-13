@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Game Form</title>
+    </head>
+    <body>
+        <form action="/add" method="POST">
+            <label for="game-name">Game Name: </label>
+            <input type="text" name="game_name" id="game-name" required>
+
+            <label for="game-genre">Game Genre: </label>
+            <select name="game_genre" id="game-genre" required>
+                <% for (let i = 0; i < genres.length; i++) { %>
+                    <option value="<%= i + 1 %>"><%= genres[i].game_genre %></option>
+                <% } %>
+            </select>
+
+            <button type="submit">Submit this Game</button>
+        </form>
+    </body>
+</html>
