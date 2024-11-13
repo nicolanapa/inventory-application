@@ -15,3 +15,24 @@ header {
     padding: 10px;
     margin: 2.5px 5px;
 }
+
+h2 {
+    margin: 25px 0 10px 5px;
+}
+
+.list-of-games {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 20px;
+    list-style: none;
+    justify-items: center;
+}
+
+.list-of-games > li {
+    background-color: #17171d;
+    border-radius: 10px;
+    padding: 20px 10px;
+    margin: 15px;
+    min-width: 20%;
+    text-align: center;
+}
