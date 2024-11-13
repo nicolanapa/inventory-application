@@ -54,5 +54,8 @@ a:visited {
     text-align: center;
 }
 
-.list-of-genres {
+.list-of-genres > li {
+    background-color: #3c3c3c;
+    border-radius: 20px;
+    padding: 40px;
 }
