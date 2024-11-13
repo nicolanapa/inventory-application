@@ -20,13 +20,13 @@
             <div>
                 <h2>Most played Games</h2>
 
-                <ul>
+                <ul class="list-of-games">
                     <% games.forEach((game) => {%>
                         <li>
                             <%= game.game_name %>
                         </li>
                     <% }); %>
-                    </ul>
+                </ul>
             </div>
 
             <div>
@@ -46,7 +46,7 @@
             <div>
                 <h2>What you should play</h2>
 
-                <ul>
+                <ul class="list-of-games">
                     <% let randomGames = []; %>
 
                     <% for (let i = 0; i < games.length; i++) {
