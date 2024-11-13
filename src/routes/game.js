@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as getQuery from "../db/queries/getQueries.js";
+import { postGame } from "../db/queries/insertQueries.js";
 
 const gameRouter = Router();
 
@@ -16,8 +17,16 @@ gameRouter.get("/json", async (req, res) => {
     res.status(200).json(listOfGames);
 });
 
-gameRouter.get("/add", (req, res) => {});
+gameRouter.get("/add", async (req, res) => {
+    const listOfGenres = await getQuery.getElements("genre");
 
-gameRouter.post("/add", (req, res) => {});
+    res.set({ "Content-Type": "text/html" });
+    res.status(200).render("form/gameForm", { genres: listOfGenres });
+});
+
+gameRouter.post("/add", async (req, res) => {
+    // validation
+    await postGame();
+});
 
 export default gameRouter;
