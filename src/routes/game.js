@@ -16,4 +16,8 @@ gameRouter.get("/json", async (req, res) => {
     res.status(200).json(listOfGames);
 });
 
+gameRouter.get("/add", (req, res) => {});
+
+gameRouter.post("/add", (req, res) => {});
+
 export default gameRouter;
