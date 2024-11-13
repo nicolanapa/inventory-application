@@ -23,7 +23,7 @@
                 <ul class="list-of-games">
                     <% games.forEach((game) => {%>
                         <li>
-                            <%= game.game_name %>
+                            <a href="/game/<%= game.id %>"><%= game.game_name %></a>
                         </li>
                     <% }); %>
                 </ul>
