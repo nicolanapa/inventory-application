@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, validationResult } from "express-validator";
 import * as getQuery from "../db/queries/getQueries.js";
 import { postGame } from "../db/queries/insertQueries.js";
 
@@ -28,13 +28,45 @@ const getAdd = async (req, res) => {
     });
 };
 
-const addFormValidation = [];
+const addFormValidation = [
+    body("game_name")
+        .trim()
+        .isAlphanumeric()
+        .notEmpty()
+        .withMessage("Game Name should only have characters and numbers"),
+    body("game_genre").isArray({ min: 1 }).withMessage("Atleast a Genre should be selected"),
+    body("cost")
+        .isFloat({ min: 0, max: 1000 })
+        .withMessage("Game Cost should be between 0 and 1000"),
+    body("developer_name")
+        .isArray({ min: 1 })
+        .withMessage("Atleast a Developer should be selected"),
+    body("publisher_name").isInt({ min: 1 }).withMessage("A Game Publisher is required"),
+];
 
 const postAdd = [
     addFormValidation,
     async (req, res) => {
-        // validation
-        await postGame();
+        const errors = validationResult(req);
+
+        console.log(req.body);
+
+        if (!errors.isEmpty()) {
+            console.log(1);
+            const listOfGenres = await getQuery.getElements("genre");
+            const listOfDevelopers = await getQuery.getElements("developer");
+            const listOfPublishers = await getQuery.getElements("publisher");
+
+            return res.status(400).render("form/gameForm", {
+                errors: errors.array(),
+                genres: listOfGenres,
+                developers: listOfDevelopers,
+                publishers: listOfPublishers,
+            });
+        }
+
+        //await postGame();
+        res.redirect("/game");
     },
 ];
 
