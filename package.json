@@ -9,8 +9,8 @@
         "git": "git subtree push --prefix dist origin gh-pages",
         "startWatch": "node --watch --env-file=.env ./src/app.js",
         "startDb": "node --env-file=.env ./src/db/populateDb.js",
-        "insertIntoDb": "node --env-file=.env ./src/db/defaultValues.js"
-
+        "insertIntoDb": "node --env-file=.env ./src/db/defaultValues.js",
+        "dropDbTables": "node --env-file=.env ./src/db/dropTables.js"
     },
     "keywords": [],
     "author": "",
