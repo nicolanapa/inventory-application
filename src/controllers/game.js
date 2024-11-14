@@ -145,12 +145,12 @@ const getGame = async (req, res) => {
 };
 
 const deleteGame = async (req, res) => {
-    await deleteQuery.deleteElementId("game", req.params.id);
     await deleteQuery.deleteElement("game_genre", "game_id", req.params.id);
     await deleteQuery.deleteElement("game_developer", "game_id", req.params.id);
     await deleteQuery.deleteElement("game_publisher", "game_id", req.params.id);
     await deleteQuery.deleteElement("game_cost", "game_id", req.params.id);
     await deleteQuery.deleteElement("game_rating", "game_id", req.params.id);
+    await deleteQuery.deleteElementId("game", req.params.id);
 
     res.redirect("/game");
 };
