@@ -11,8 +11,8 @@ gameRouter.get("/add", gameController.getAdd);
 
 gameRouter.post("/add", gameController.postAdd);
 
-gameRouter.get("/delete/:id");
+gameRouter.get("/:id", gameController.getGame);
 
-gameRouter.get("/:id");
+gameRouter.delete("/:id", gameController.deleteGame);
 
 export default gameRouter;
