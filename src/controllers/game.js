@@ -1,6 +1,7 @@
 import { body, validationResult } from "express-validator";
 import * as getQuery from "../db/queries/getQueries.js";
 import * as insertQuery from "../db/queries/insertQueries.js";
+import * as deleteQuery from "../db/queries/deleteQueries.js";
 
 const getIndex = async (req, res) => {
     const listOfGames = await getQuery.getElements("game");
@@ -143,6 +144,15 @@ const getGame = async (req, res) => {
     res.status(200).render("oneGameView", { game: game[0] });
 };
 
-const deleteGame = (req, res) => {};
+const deleteGame = async (req, res) => {
+    await deleteQuery.deleteElementId("game", req.params.id);
+    await deleteQuery.deleteElement("game_genre", "game_id", req.params.id);
+    await deleteQuery.deleteElement("game_developer", "game_id", req.params.id);
+    await deleteQuery.deleteElement("game_publisher", "game_id", req.params.id);
+    await deleteQuery.deleteElement("game_cost", "game_id", req.params.id);
+    await deleteQuery.deleteElement("game_rating", "game_id", req.params.id);
+
+    res.redirect("/game");
+};
 
 export { getIndex, getJson, getAdd, postAdd, getGame, deleteGame };
