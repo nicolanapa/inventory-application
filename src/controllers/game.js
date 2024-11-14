@@ -137,4 +137,12 @@ const postAdd = [
     },
 ];
 
-export { getIndex, getJson, getAdd, postAdd };
+const getGame = async (req, res) => {
+    const game = await getQuery.getElement("game", "id", req.params.id);
+
+    res.status(200).render("oneGameView", { game: game[0] });
+};
+
+const deleteGame = (req, res) => {};
+
+export { getIndex, getJson, getAdd, postAdd, getGame, deleteGame };
