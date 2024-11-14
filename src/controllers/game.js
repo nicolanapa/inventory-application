@@ -140,8 +140,20 @@ const postAdd = [
 
 const getGame = async (req, res) => {
     const game = await getQuery.getElement("game", "id", req.params.id);
+    const genres = await getQuery.getGameGenre(req.params.id);
+    const developers = await getQuery.getGameDeveloper(req.params.id);
+    const publishers = await getQuery.getGamePublisher(req.params.id);
+    const cost = await getQuery.getCost(req.params.id);
+    const ratings = await getQuery.getAllRatings(req.params.id);
 
-    res.status(200).render("oneGameView", { game: game[0] });
+    res.status(200).render("oneGameView", {
+        game: game[0],
+        genres: genres,
+        developers: developers,
+        publishers: publishers,
+        cost: cost,
+        ratings: ratings,
+    });
 };
 
 const deleteGame = async (req, res) => {
