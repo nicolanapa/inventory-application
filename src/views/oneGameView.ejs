@@ -8,10 +8,34 @@
     <body>
         <main>
             <h2><%= game.game_name %></h2>
+            <p><%= cost %> €</p>
 
-            <!-- Price, List of Genres, Developed by, Published by-->
-            <!-- delete request -->
-            <form action="/game/delete/<%= game.id %>" method="get">
+            <h3>Ratings</h3>
+            <% let average = 0; %>
+            <% for (let i = 0; i < ratings.length; i++) { %>
+                <% average += ratings[i].rating; %>
+            <% } %>
+            <p><%= Number.parseFloat(average / ratings.length).toFixed(2) %> <img src="../icons/starIcon.svg" alt="Stars" width="20px" height="auto"></p>
+
+            <h3>Genres</h3>
+            <ul>
+                <% for (let i = 0; i < genres.length; i++) { %>
+                    <li><%= genres[i].game_genre %></li>
+                <% } %>
+            </ul>
+
+            <h3>Developed By</h3>
+            <ul>
+                <% for (let i = 0; i < developers.length; i++) { %>
+                    <li><%= developers[i].developer_name %></li>
+                <% } %>
+            </ul>
+
+            <h3>Published By</h3>
+            <p><%= publishers[0].publisher_name %></p>
+            
+
+            <form action="/game/delete/<%= game.id %>" method="GET">
                 <button type="submit">Delete this Game?</button>
             </form>
             <!-- Game not foud Handling -->
