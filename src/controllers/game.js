@@ -151,7 +151,7 @@ const getGame = async (req, res) => {
         genres: genres,
         developers: developers,
         publishers: publishers,
-        cost: cost,
+        cost: cost[0].cost,
         ratings: ratings,
     });
 };
