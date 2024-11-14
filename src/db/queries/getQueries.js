@@ -95,7 +95,7 @@ async function getCost(gameId) {
 async function getAllRatings(gameId, selectQuery = "*") {
     const { rows } = await pool.query(
         `
-        SELECT ${selectQuery} FROM 
+        SELECT ${selectQuery} FROM game_rating
         WHERE game_id = $1;
         `,
         [gameId],
