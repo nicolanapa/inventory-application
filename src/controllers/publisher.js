@@ -52,7 +52,7 @@ const postAdd = [
 ];
 
 const getPublisher = async (req, res) => {
-    const games = await getQuery.getGamePublisher(req.params.id);
+    const games = await getQuery.getGamePublisher("publisher_id", req.params.id);
     const publisher = await getQuery.getElement("publisher", "id", req.params.id);
 
     res.status(200).render("singleView/publisherView", {
@@ -62,8 +62,8 @@ const getPublisher = async (req, res) => {
 };
 
 const deletePublisher = async (req, res) => {
-    const games = await getQuery.getGamePublisher(req.params.id);
-    console.log(games);
+    const games = await getQuery.getGamePublisher("publisher_id", req.params.id);
+
     if (games.length !== 0) {
         await deleteQuery.deleteElement("game_publisher", "publisher_id", req.params.id);
     }
