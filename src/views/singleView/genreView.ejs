@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Genre <%= genre.id %></title>
+
+        <link rel="stylesheet" href="../../styles/style.css" />
+        <link rel="stylesheet" href="../../styles/form.css" />
+    </head>
+    <body>
+        <%- include("../partials/header") %>
+
+        <main>
+            <h2><%= genre.game_genre %></h2>
+
+            <h3>Found in these Games</h3>
+            <ul>
+                <li></li>
+            </ul>
+
+            <form action="/genre/delete/<%= genre.id %>" method="GET">
+                <button
+                    type="submit"
+                    onclick="return confirm('Are you sure to delete <%= genre.game_genre %>?')"
+                >
+                    Delete this Genre?
+                </button>
+            </form>
+            <!-- Game not foud Handling -->
+        </main>
+    </body>
+</html>

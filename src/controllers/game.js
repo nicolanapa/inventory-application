@@ -146,7 +146,7 @@ const getGame = async (req, res) => {
     const cost = await getQuery.getCost(req.params.id);
     const ratings = await getQuery.getAllRatings(req.params.id);
 
-    res.status(200).render("oneGameView", {
+    res.status(200).render("singleView/gameView", {
         game: game[0],
         genres: genres,
         developers: developers,
