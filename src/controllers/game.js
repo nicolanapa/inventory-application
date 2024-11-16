@@ -140,7 +140,7 @@ const postAdd = [
 
 const getGame = async (req, res) => {
     const game = await getQuery.getElement("game", "id", req.params.id);
-    const genres = await getQuery.getGameFromGenreId(req.params.id);
+    const genres = await getQuery.getGameFromGameId(req.params.id);
     const developers = await getQuery.getGameDeveloper(req.params.id);
     const publishers = await getQuery.getGamePublisher("publisher_id", req.params.id);
     const cost = await getQuery.getCost(req.params.id);
