@@ -38,7 +38,7 @@ async function getElementLike(tableToQueryFrom, conditionName, elementToQuery) {
 
 // Remove double code functions once all the Queries get tested better
 
-async function getGameGenreId(genreId) {
+async function getGameFromGenreId(genreId) {
     const { rows } = await pool.query(
         `
         SELECT * FROM game_genre
@@ -52,7 +52,7 @@ async function getGameGenreId(genreId) {
     return rows;
 }
 
-async function getGameGenre(gameId) {
+async function getGameFromGameId(gameId) {
     const { rows } = await pool.query(
         `
         SELECT * FROM game_genre
@@ -122,8 +122,8 @@ export {
     getElements,
     getElement,
     getElementLike,
-    getGameGenreId,
-    getGameGenre,
+    getGameFromGenreId,
+    getGameFromGameId,
     getGameDeveloper,
     getGamePublisher,
     getCost,
