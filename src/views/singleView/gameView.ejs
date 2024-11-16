@@ -39,10 +39,9 @@
             <p><%= publishers[0].publisher_name %></p>
             
 
-            <form action="/game/delete/<%= game.id %>" method="GET">
-                <button type="submit" onclick="return confirm('Are you sure to delete <%= game.game_name %>?')">Delete this Game?</button>
-            </form>
-            <!-- Game not foud Handling -->
+            <%- include("../partials/deleteForm", { path: "game", id: game.id, name: game.game_name }) %>
+
+            <!-- Game not found Handling -->
         </main>
     </body>
 </html>
