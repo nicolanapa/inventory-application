@@ -52,37 +52,35 @@ const postAdd = [
 
         const { game_genre } = req.body;
 
+        insertQuery.postElement("genre", "game_genre", game_genre);
+
         res.redirect("/genre");
     },
 ];
 
-/*const getGenre = async (req, res) => {
-    const game = await getQuery.getElement("game", "id", req.params.id);
-    const genres = await getQuery.getGameGenre(req.params.id);
-    const developers = await getQuery.getGameDeveloper(req.params.id);
+const getGenre = async (req, res) => {
+    //const games = await getQuery.getElement("game", "id", req.params.id);
+    const genre = await getQuery.getGameGenre(req.params.id);
+    /*const developers = await getQuery.getGameDeveloper(req.params.id);
     const publishers = await getQuery.getGamePublisher(req.params.id);
     const cost = await getQuery.getCost(req.params.id);
-    const ratings = await getQuery.getAllRatings(req.params.id);
+    const ratings = await getQuery.getAllRatings(req.params.id);*/
 
-    res.status(200).render("oneGameView", {
-        game: game[0],
-        genres: genres,
-        developers: developers,
+    res.status(200).render("singleView/genreView", {
+        //games: games,
+        genre: genre[0],
+        /*developers: developers,
         publishers: publishers,
         cost: cost[0].cost,
-        ratings: ratings,
+        ratings: ratings,*/
     });
 };
 
 const deleteGenre = async (req, res) => {
-    await deleteQuery.deleteElement("game_genre", "game_id", req.params.id);
-    await deleteQuery.deleteElement("game_developer", "game_id", req.params.id);
-    await deleteQuery.deleteElement("game_publisher", "game_id", req.params.id);
-    await deleteQuery.deleteElement("game_cost", "game_id", req.params.id);
-    await deleteQuery.deleteElement("game_rating", "game_id", req.params.id);
-    await deleteQuery.deleteElementId("game", req.params.id);
+    // delete genre_id from game_genre
+    await deleteQuery.deleteElementId("genre", req.params.id);
 
-    res.redirect("/game");
-};*/
+    res.redirect("/genre");
+};
 
 export { getIndex, getJson, getAdd, postAdd, getGenre, deleteGenre };
