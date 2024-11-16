@@ -4,29 +4,21 @@ import * as insertQuery from "../db/queries/insertQueries.js";
 import * as deleteQuery from "../db/queries/deleteQueries.js";
 
 const getIndex = async (req, res) => {
-    const listOfGenres = await getQuery.getElements("genre");
+    const listOfDevelopers = await getQuery.getElements("developer");
 
     res.set({ "Content-Type": "text/html" });
-    res.status(200).render("genre", { genres: listOfGenres });
+    res.status(200).render("developer", { developers: listOfDevelopers });
 };
 
 const getJson = async (req, res) => {
-    const listOfGenres = await getQuery.getElements("genre", 100);
+    const listOfDevelopers = await getQuery.getElements("developer", 100);
 
-    res.status(200).json(listOfGenres);
+    res.status(200).json(listOfDevelopers);
 };
 
 const getAdd = async (req, res) => {
-    const listOfGenres = await getQuery.getElements("genre");
-    // Add list for adding to existent Games a Genre
-    const games = await getQuery.getElements("game");
-    //console.log(games);
-
     res.set({ "Content-Type": "text/html" });
-    res.status(200).render("form/genreForm", {
-        games: games,
-        genres: listOfGenres,
-    });
+    res.status(200).render("form/developerForm");
 };
 
 const addFormValidation = [
@@ -46,50 +38,43 @@ const postAdd = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            const listOfGenres = await getQuery.getElements("genre");
-
-            res.status(400).render("form/genreForm", {
+            res.status(400).render("form/developerForm", {
                 errors: errors.array(),
-                genres: listOfGenres,
             });
         }
 
-        const { game_genre } = req.body;
+        const { developer_name } = req.body;
 
-        insertQuery.postElement("genre", "game_genre", game_genre);
+        insertQuery.postElement("developer", "developer_name", developer_name);
 
-        res.redirect("/genre");
+        res.redirect("/developer");
     },
 ];
 
 const getDeveloper = async (req, res) => {
-    const games = await getQuery.getGameFromGenreId(req.params.id);
-    const genre = await getQuery.getElement("genre", "id", req.params.id);
-    /*const developers = await getQuery.getGameDeveloper(req.params.id);
-    const publishers = await getQuery.getGamePublisher(req.params.id);
-    const cost = await getQuery.getCost(req.params.id);
+    const games = await getQuery.getGameDeveloper("developer_id", req.params.id);
+    const developer = await getQuery.getElement("developer", "id", req.params.id);
+    /*const cost = await getQuery.getCost(req.params.id);
     const ratings = await getQuery.getAllRatings(req.params.id);*/
 
-    res.status(200).render("singleView/genreView", {
+    res.status(200).render("singleView/developerView", {
         games: games,
-        genre: genre[0],
-        /*developers: developers,
-        publishers: publishers,
-        cost: cost[0].cost,
+        developer: developer[0],
+        /*cost: cost[0].cost,
         ratings: ratings,*/
     });
 };
 
 const deleteDeveloper = async (req, res) => {
-    const games = await getQuery.getGameFromGenreId(req.params.id);
+    const games = await getQuery.getGameDeveloper("developer_id", req.params.id);
     console.log(games);
     if (games.length !== 0) {
-        await deleteQuery.deleteElement("game_genre", "genre_id", req.params.id);
+        await deleteQuery.deleteElement("game_developer", "developer_id", req.params.id);
     }
 
-    await deleteQuery.deleteElementId("genre", req.params.id);
+    await deleteQuery.deleteElementId("developer", req.params.id);
 
-    res.redirect("/genre");
+    res.redirect("/developer");
 };
 
 export { getIndex, getJson, getAdd, postAdd, getDeveloper, deleteDeveloper };
