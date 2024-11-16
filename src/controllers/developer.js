@@ -22,14 +22,14 @@ const getAdd = async (req, res) => {
 };
 
 const addFormValidation = [
-    body("game_genre")
+    body("developer_name")
         .trim()
         .notEmpty()
-        .withMessage("Genre Name Input can't be Empty")
-        .isLength({ min: 2, max: 16 })
-        .withMessage("A Genre should be between lenght 2 and 16")
+        .withMessage("Developer Name Input can't be Empty")
+        .isLength({ min: 1, max: 32 })
+        .withMessage("A Genre should be between lenght 1 and 32")
         .isAlpha()
-        .withMessage("Genre Name can only have characters"),
+        .withMessage("Developer Name can only have characters"),
 ];
 
 const postAdd = [
