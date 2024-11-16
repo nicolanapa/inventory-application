@@ -59,7 +59,7 @@ const postAdd = [
 ];
 
 const getGenre = async (req, res) => {
-    //const games = await getQuery.getElement("game", "id", req.params.id);
+    const games = await getQuery.getGameGenreId(req.params.id);
     const genre = await getQuery.getGameGenre(req.params.id);
     /*const developers = await getQuery.getGameDeveloper(req.params.id);
     const publishers = await getQuery.getGamePublisher(req.params.id);
@@ -67,7 +67,7 @@ const getGenre = async (req, res) => {
     const ratings = await getQuery.getAllRatings(req.params.id);*/
 
     res.status(200).render("singleView/genreView", {
-        //games: games,
+        games: games,
         genre: genre[0],
         /*developers: developers,
         publishers: publishers,
