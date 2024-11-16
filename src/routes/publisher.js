@@ -1,19 +1,18 @@
 import { Router } from "express";
-import * as getQuery from "../db/queries/getQueries.js";
+import * as publisherController from "../controllers/publisher.js";
 
 const publisherRouter = Router();
 
-publisherRouter.get("/", async (req, res) => {
-    const listOfPublishers = await getQuery.getElements("publisher");
+publisherRouter.get("/", publisherController.getIndex);
 
-    res.set({ "Content-Type": "text/html" });
-    res.status(200).render("publisher", { publishers: listOfPublishers });
-});
+publisherRouter.get("/json", publisherController.getJson);
 
-publisherRouter.get("/json", async (req, res) => {
-    const listOfPublishers = await getQuery.getElements("publisher", 100);
+publisherRouter.get("/add", publisherController.getAdd);
 
-    res.status(200).json(listOfPublishers);
-});
+publisherRouter.post("/add", publisherController.postAdd);
+
+publisherRouter.get("/:id", publisherController.getPublisher);
+
+publisherRouter.get("/delete/:id", publisherController.deletePublisher);
 
 export default publisherRouter;
