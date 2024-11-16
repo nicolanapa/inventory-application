@@ -66,13 +66,15 @@ async function getGameFromGameId(gameId) {
     return rows;
 }
 
-async function getGameDeveloper(developerId) {
+async function getGameDeveloper(columnValue, developerId) {
     const { rows } = await pool.query(
         `
-        SELECT developer_name FROM game_developer
+        SELECT * FROM game_developer
         INNER JOIN developer
         ON game_developer.developer_id = developer.id
-        WHERE game_id = $1;
+        INNER JOIN game
+        ON game.id = game_developer.game_id
+        WHERE ${columnValue} = $1;
         `,
         [developerId],
     );
