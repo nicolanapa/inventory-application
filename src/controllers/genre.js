@@ -59,8 +59,8 @@ const postAdd = [
 ];
 
 const getGenre = async (req, res) => {
-    const games = await getQuery.getGameGenreId(req.params.id);
-    const genre = await getQuery.getGameGenre(req.params.id);
+    const games = await getQuery.getGameFromGenreId(req.params.id);
+    const genre = await getQuery.getElement("genre", "id", req.params.id);
     /*const developers = await getQuery.getGameDeveloper(req.params.id);
     const publishers = await getQuery.getGamePublisher(req.params.id);
     const cost = await getQuery.getCost(req.params.id);
@@ -77,7 +77,12 @@ const getGenre = async (req, res) => {
 };
 
 const deleteGenre = async (req, res) => {
-    // delete genre_id from game_genre
+    const games = await getQuery.getGameFromGenreId(req.params.id);
+    console.log(games);
+    if (games.length !== 0) {
+        await deleteQuery.deleteElement("game_genre", "genre_id", req.params.id);
+    }
+
     await deleteQuery.deleteElementId("genre", req.params.id);
 
     res.redirect("/genre");
