@@ -27,7 +27,7 @@ const addFormValidation = [
         .notEmpty()
         .withMessage("Developer Name Input can't be Empty")
         .isLength({ min: 1, max: 32 })
-        .withMessage("A Genre should be between lenght 1 and 32")
+        .withMessage("Developer Name should be between lenght 1 and 32")
         .isAlpha()
         .withMessage("Developer Name can only have characters"),
 ];
