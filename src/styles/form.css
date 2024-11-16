@@ -1,0 +1,49 @@
+fieldset {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    gap: 10px;
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px 5px;
+    max-width: 400px;
+}
+
+fieldset > * {
+    color: black;
+}
+
+legend {
+    background-color: rgb(33, 33, 33);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+input,
+button,
+select {
+    background-color: rgb(44, 44, 44);
+    border-radius: 10px;
+    border-style: none;
+}
+
+label {
+    margin-right: 10px;
+}
+
+input {
+    padding: 10px 20px;
+}
+
+input[type="checkbox"] {
+    justify-self: right;
+}
+
+button {
+    padding: 20px 15px;
+    margin: 10px;
+}
+
+select {
+    padding: 15px 20px;
+}
