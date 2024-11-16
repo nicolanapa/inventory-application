@@ -1,19 +1,18 @@
 import { Router } from "express";
-import * as getQuery from "../db/queries/getQueries.js";
+import * as developerController from "../controllers/developer.js";
 
 const developerRouter = Router();
 
-developerRouter.get("/", async (req, res) => {
-    const listOfDevelopers = await getQuery.getElements("developer");
+developerRouter.get("/", developerController.getIndex);
 
-    res.set({ "Content-Type": "text/html" });
-    res.status(200).render("developer", { developers: listOfDevelopers });
-});
+developerRouter.get("/json", developerController.getJson);
 
-developerRouter.get("/json", async (req, res) => {
-    const listOfDevelopers = await getQuery.getElements("developer", 100);
+developerRouter.get("/add", developerController.getAdd);
 
-    res.status(200).json(listOfDevelopers);
-});
+developerRouter.post("/add", developerController.postAdd);
+
+developerRouter.get("/:id", developerController.getDeveloper);
+
+developerRouter.get("/delete/:id", developerController.deleteDeveloper);
 
 export default developerRouter;
