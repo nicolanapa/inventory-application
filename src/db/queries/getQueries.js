@@ -55,7 +55,7 @@ async function getGameGenreId(genreId) {
 async function getGameGenre(gameId) {
     const { rows } = await pool.query(
         `
-        SELECT game_genre FROM game_genre
+        SELECT * FROM game_genre
         INNER JOIN genre
         ON game_genre.genre_id = genre.id
         WHERE game_id = $1;
