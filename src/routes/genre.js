@@ -11,8 +11,8 @@ genreRouter.get("/add", genreController.getAdd);
 
 genreRouter.post("/add", genreController.postAdd);
 
-genreRouter.get("/:id", genreController.getGame);
+genreRouter.get("/:id", genreController.getGenre);
 
-genreRouter.get("/delete/:id", genreController.deleteGame);
+genreRouter.get("/delete/:id", genreController.deleteGenre);
 
 export default genreRouter;
