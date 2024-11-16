@@ -1,19 +1,18 @@
 import { Router } from "express";
-import * as getQuery from "../db/queries/getQueries.js";
+import * as genreController from "../controllers/genre.js";
 
 const genreRouter = Router();
 
-genreRouter.get("/", async (req, res) => {
-    const listOfGenres = await getQuery.getElements("genre");
+genreRouter.get("/", genreController.getIndex);
 
-    res.set({ "Content-Type": "text/html" });
-    res.status(200).render("genre", { genres: listOfGenres });
-});
+genreRouter.get("/json", genreController.getJson);
 
-genreRouter.get("/json", async (req, res) => {
-    const listOfGenres = await getQuery.getElements("genre");
+genreRouter.get("/add", genreController.getAdd);
 
-    res.status(200).json(listOfGenres);
-});
+genreRouter.post("/add", genreController.postAdd);
+
+genreRouter.get("/:id", genreController.getGame);
+
+genreRouter.get("/delete/:id", genreController.deleteGame);
 
 export default genreRouter;
