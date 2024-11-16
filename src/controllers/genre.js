@@ -18,9 +18,13 @@ const getJson = async (req, res) => {
 
 const getAdd = async (req, res) => {
     const listOfGenres = await getQuery.getElements("genre");
+    // Add list for adding to existent Games a Genre
+    const games = await getQuery.getElements("game");
+    //console.log(games);
 
     res.set({ "Content-Type": "text/html" });
     res.status(200).render("form/genreForm", {
+        games: games,
         genres: listOfGenres,
     });
 };
