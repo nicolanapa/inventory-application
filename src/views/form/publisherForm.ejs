@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Publisher Form</title>
+        
+        <link rel="stylesheet" href="../../styles/style.css">
+        <link rel="stylesheet" href="../../styles/form.css">
+    </head>
+    <body>
+        <%- include("../partials/header") %>
+
+        <% if (locals.errors) { %>
+            <ul>
+                <% locals.errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }); %>
+            </ul>
+        <% } %>
+
+        <form action="/publisher/add" method="POST">
+            <label for="publisher-name">Publisher Name: </label>
+            <input type="text" name="publisher_name" id="publisher-name" required>
+            
+            <button type="submit">Submit this Publisher</button>
+        </form>
+    </body>
+</html>
