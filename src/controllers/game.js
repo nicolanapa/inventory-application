@@ -140,17 +140,27 @@ const postAdd = [
 
 const getGame = async (req, res) => {
     const game = await getQuery.getElement("game", "id", req.params.id);
-    const genres = await getQuery.getGameGenre(req.params.id);
+    const genres = await getQuery.getGameFromGenreId(req.params.id);
     const developers = await getQuery.getGameDeveloper(req.params.id);
-    const publishers = await getQuery.getGamePublisher(req.params.id);
+    const publishers = await getQuery.getGamePublisher("publisher_id", req.params.id);
     const cost = await getQuery.getCost(req.params.id);
     const ratings = await getQuery.getAllRatings(req.params.id);
 
     res.status(200).render("singleView/gameView", {
         game: game[0],
         genres: genres,
-        developers: developers,
-        publishers: publishers,
+        developers:
+            developers === undefined ||
+            developers === null ||
+            developers === undefined ||
+            developers === null ||
+            developers.length === 0
+                ? [{ id: 1, developer_name: "No one..." }]
+                : developers,
+        publishers:
+            publishers === undefined || publishers === null || publishers.length === 0
+                ? [{ publisher_name: "No one..." }]
+                : publishers,
         cost: cost[0].cost,
         ratings: ratings,
     });
