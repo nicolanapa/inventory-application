@@ -10,6 +10,15 @@
     <body>
         <%- include("partials/header") %>
 
-        <main><%= JSON.stringify(locals.genres); %></main>
+        <main>
+            <%- include("partials/add", { path: "genre", name: "Genre"}) %>
+
+            <h2>Genres</h2>
+            <ul>
+                <% for (let i = 0; i < genres.length; i++) { %>
+                    <li><a href="/genre/<%= genres[i].id %>"><%= genres[i].game_genre %></a></li>
+                <% } %>
+            </ul>
+        </main>
     </body>
 </html>

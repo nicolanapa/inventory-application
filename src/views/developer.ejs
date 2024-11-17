@@ -10,6 +10,15 @@
     <body>
         <%- include("partials/header") %>
 
-        <main><%= JSON.stringify(locals.developers); %></main>
+        <main>
+            <%- include("partials/add", { path: "developer", name: "Developer"}) %>
+
+            <h2>Developers</h2>
+            <ul>
+                <% for (let i = 0; i < developers.length; i++) { %>
+                    <li><a href="/developer/<%= developers[i].id %>"><%= developers[i].developer_name %></a></li>
+                <% } %>
+            </ul>
+        </main>
     </body>
 </html>
