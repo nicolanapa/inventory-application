@@ -56,7 +56,7 @@ const postAdd = [
 
         const { game_genre } = req.body;
 
-        insertQuery.postElement("genre", "game_genre", game_genre);
+        await insertQuery.postElement("genre", "game_genre", game_genre);
 
         res.redirect("/genre");
     },

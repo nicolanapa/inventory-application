@@ -45,7 +45,7 @@ const postAdd = [
 
         const { developer_name } = req.body;
 
-        insertQuery.postElement("developer", "developer_name", developer_name);
+        await insertQuery.postElement("developer", "developer_name", developer_name);
 
         res.redirect("/developer");
     },

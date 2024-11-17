@@ -45,7 +45,7 @@ const postAdd = [
 
         const { publisher_name } = req.body;
 
-        insertQuery.postElement("publisher", "publisher_name", publisher_name);
+        await insertQuery.postElement("publisher", "publisher_name", publisher_name);
 
         res.redirect("/publisher");
     },
