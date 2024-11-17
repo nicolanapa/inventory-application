@@ -66,6 +66,14 @@ li {
     margin: 10px 15px;
 }
 
+button {
+    background-color: rgb(44, 44, 44);
+    border-radius: 10px;
+    border-style: none;
+    padding: 20px 15px;
+    margin: 10px;
+}
+
 @media only screen and (max-width: 300px) {
     .list-of-games,
     .list-of-genres {
