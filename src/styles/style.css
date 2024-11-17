@@ -37,14 +37,6 @@ a:visited {
     justify-items: center;
 }
 
-.list-of-games {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.list-of-genres {
-    grid-template-columns: repeat(3, 1fr);
-}
-
 .list-of-games > li {
     background-color: #17171d;
     border-radius: 10px;
@@ -58,4 +50,35 @@ a:visited {
     background-color: #3c3c3c;
     border-radius: 20px;
     padding: 40px;
+}
+
+@media only screen and (max-width: 300px) {
+    .list-of-games,
+    .list-of-genres {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 500px) {
+    .list-of-games,
+    .list-of-genres {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 800px) {
+    .list-of-games,
+    .list-of-genres {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .list-of-games {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .list-of-genres {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
