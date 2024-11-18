@@ -6,40 +6,42 @@
         <title>Game <%= game.id %></title>
 
         <link rel="stylesheet" href="../../styles/style.css">
+        <link rel="stylesheet" href="../../styles/singleView.css">
     </head>
     <body>
         <%- include("../partials/header") %>
 
         <main>
-            <h2><%= game.game_name %></h2>
-            <p><%= cost %> €</p>
+            <div>
+                <h2><%= game.game_name %></h2>
+                <p><%= cost %> €</p>
 
-            <h3>Ratings</h3>
-            <% let average = 0; %>
-            <% for (let i = 0; i < ratings.length; i++) { %>
-                <% average += ratings[i].rating; %>
-            <% } %>
-            <p><%= Number.parseFloat(average / ratings.length).toFixed(2) %> <img src="../icons/starIcon.svg" alt="Stars" width="20px" height="auto"></p>
-
-            <h3>Genres</h3>
-            <ul>
-                <% for (let i = 0; i < genres.length; i++) { %>
-                    <li><%= genres[i].game_genre %></li>
+                <h3>Ratings</h3>
+                <% let average = 0; %>
+                <% for (let i = 0; i < ratings.length; i++) { %>
+                    <% average += ratings[i].rating; %>
                 <% } %>
-            </ul>
+                <p><%= Number.parseFloat(average / ratings.length).toFixed(2) %> <img src="../icons/starIcon.svg" alt="Stars" width="20px" height="auto"></p>
 
-            <h3>Developed By</h3>
-            <ul>
-                <% for (let i = 0; i < developers.length; i++) { %>
-                    <li><%= developers[i].developer_name %></li>
-                <% } %>
-            </ul>
+                <h3>Genres</h3>
+                <ul>
+                    <% for (let i = 0; i < genres.length; i++) { %>
+                        <li><%= genres[i].game_genre %></li>
+                    <% } %>
+                </ul>
 
-            <h3>Published By</h3>
-            <p><%= publishers[0].publisher_name %></p>
+                <h3>Developed By</h3>
+                <ul>
+                    <% for (let i = 0; i < developers.length; i++) { %>
+                        <li><%= developers[i].developer_name %></li>
+                    <% } %>
+                </ul>
 
-            <%- include("../partials/deleteForm", { path: "game", id: game.id, name: game.game_name }) %>
+                <h3>Published By</h3>
+                <p><%= publishers[0].publisher_name %></p>
 
+                <%- include("../partials/deleteForm", { path: "game", id: game.id, name: game.game_name }) %>
+            </div>
             <!-- Game not found Handling -->
         </main>
     </body>

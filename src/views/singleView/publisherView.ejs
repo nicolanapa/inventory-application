@@ -6,22 +6,24 @@
         <title>Publisher <%= publisher.id %></title>
 
         <link rel="stylesheet" href="../../styles/style.css" />
+        <link rel="stylesheet" href="../../styles/singleView.css">
     </head>
     <body>
         <%- include("../partials/header") %>
 
         <main>
-            <h2><%= publisher.publisher_name %></h2>
+            <div>
+                <h2><%= publisher.publisher_name %></h2>
 
-            <h3>Published these Games</h3>
-            <ul>
-                <% for (let i = 0; i < games.length; i++) { %>
-                    <li><a href="/game/<%= games[i].game_id %>"><%= games[i].game_name %></a></li>
-                <% } %>
-            </ul>
+                <h3>Published these Games</h3>
+                <ul>
+                    <% for (let i = 0; i < games.length; i++) { %>
+                        <li><a href="/game/<%= games[i].game_id %>"><%= games[i].game_name %></a></li>
+                    <% } %>
+                </ul>
 
-            <%- include("../partials/deleteForm", { path: "publisher", id: publisher.id, name: publisher.publisher_name }) %>
-            
+                <%- include("../partials/deleteForm", { path: "publisher", id: publisher.id, name: publisher.publisher_name }) %>
+            </div>
             <!-- Publisher not found Handling -->
         </main>
     </body>

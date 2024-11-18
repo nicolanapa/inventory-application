@@ -6,22 +6,24 @@
         <title>Developer <%= developer.id %></title>
 
         <link rel="stylesheet" href="../../styles/style.css" />
+        <link rel="stylesheet" href="../../styles/singleView.css">
     </head>
     <body>
         <%- include("../partials/header") %>
 
         <main>
-            <h2><%= developer.developer_name %></h2>
+            <div>
+                <h2><%= developer.developer_name %></h2>
 
-            <h3>Developed these Games</h3>
-            <ul>
-                <% for (let i = 0; i < games.length; i++) { %>
-                    <li><a href="/game/<%= games[i].game_id %>"><%= games[i].game_name %></a></li>
-                <% } %>
-            </ul>
+                <h3>Developed these Games</h3>
+                <ul>
+                    <% for (let i = 0; i < games.length; i++) { %>
+                        <li><a href="/game/<%= games[i].game_id %>"><%= games[i].game_name %></a></li>
+                    <% } %>
+                </ul>
 
-            <%- include("../partials/deleteForm", { path: "developer", id: developer.id, name: developer.developer_name }) %>
-            
+                <%- include("../partials/deleteForm", { path: "developer", id: developer.id, name: developer.developer_name }) %>
+            </div>
             <!-- Genre not found Handling -->
         </main>
     </body>
