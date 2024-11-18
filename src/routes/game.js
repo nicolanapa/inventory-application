@@ -13,6 +13,8 @@ gameRouter.post("/add", gameController.postAdd);
 
 gameRouter.get("/:id", gameController.getGame);
 
+gameRouter.post("/:id/add/rating", gameController.postAddRating);
+
 gameRouter.get("/delete/:id", gameController.deleteGame);
 
 export default gameRouter;
