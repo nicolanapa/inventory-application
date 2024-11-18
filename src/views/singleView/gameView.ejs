@@ -17,11 +17,7 @@
                 <p><%= cost %> €</p>
 
                 <h3>Ratings</h3>
-                <% let average = 0; %>
-                <% for (let i = 0; i < ratings.length; i++) { %>
-                    <% average += ratings[i].rating; %>
-                <% } %>
-                <p><%= Number.parseFloat(average / ratings.length).toFixed(2) %> <img src="../icons/starIcon.svg" alt="Stars" width="20px" height="auto"></p>
+                <p><%= average %> <img src="../icons/starIcon.svg" alt="Stars" width="20px" height="auto"></p>
 
                 <h3>Genres</h3>
                 <ul>

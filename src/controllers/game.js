@@ -144,7 +144,8 @@ const getGame = async (req, res) => {
     const developers = await getQuery.getGameDeveloper(req.params.id);
     const publishers = await getQuery.getGamePublisher("publisher_id", req.params.id);
     const cost = await getQuery.getCost(req.params.id);
-    const ratings = await getQuery.getAllRatings(req.params.id);
+    //const ratings = await getQuery.getAllRatings(req.params.id);
+    const averageRatings = await getQuery.getAverageRatings(req.params.id);
 
     res.status(200).render("singleView/gameView", {
         game: game[0],
@@ -162,7 +163,8 @@ const getGame = async (req, res) => {
                 ? [{ publisher_name: "No one..." }]
                 : publishers,
         cost: cost[0].cost,
-        ratings: ratings,
+        //ratings: ratings,
+        average: Number.parseFloat(averageRatings[0].avg).toFixed(2),
     });
 };
 
