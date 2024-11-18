@@ -1,0 +1,17 @@
+main {
+    display: flex;
+    justify-content: center;
+}
+
+li {
+    list-style: none;
+}
+
+h3 {
+    margin: 40px 0 15px 5px;
+}
+
+div > p {
+    font-size: large;
+    padding: 10px 10px 5px 20px;
+}
