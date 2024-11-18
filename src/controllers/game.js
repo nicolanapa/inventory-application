@@ -138,6 +138,38 @@ const postAdd = [
     },
 ];
 
+const addRatingValidation = [
+    body("rating")
+        .trim()
+        .notEmpty()
+        .withMessage("Rating value shouldn't be empty")
+        .isFloat({ min: 0, max: 5 })
+        .withMessage("A rating can be only between 0 and 5"),
+];
+
+const postAddRating = [
+    addRatingValidation,
+    async (req, res) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            alert(errors.array());
+        }
+
+        const { rating } = req.body;
+
+        await insertQuery.postRelationTable(
+            "game_rating",
+            "game_id",
+            "rating",
+            req.params.id,
+            rating,
+        );
+
+        res.status(200).redirect("/game/" + req.params.id);
+    },
+];
+
 const getGame = async (req, res) => {
     const game = await getQuery.getElement("game", "id", req.params.id);
     const genres = await getQuery.getGameFromGameId(req.params.id);
@@ -179,4 +211,4 @@ const deleteGame = async (req, res) => {
     res.redirect("/game");
 };
 
-export { getIndex, getJson, getAdd, postAdd, getGame, deleteGame };
+export { getIndex, getJson, getAdd, postAdd, postAddRating, getGame, deleteGame };
