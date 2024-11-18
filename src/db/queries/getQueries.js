@@ -122,6 +122,18 @@ async function getAllRatings(gameId, selectQuery = "*") {
     return rows;
 }
 
+async function getAverageRatings(gameId) {
+    const { rows } = await pool.query(
+        `
+        SELECT AVG(rating) FROM game_rating
+        WHERE game_id = $1;
+        `,
+        [gameId],
+    );
+
+    return rows;
+}
+
 export {
     getElements,
     getElement,
@@ -132,4 +144,5 @@ export {
     getGamePublisher,
     getCost,
     getAllRatings,
+    getAverageRatings,
 };
