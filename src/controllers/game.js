@@ -211,4 +211,6 @@ const deleteGame = async (req, res) => {
     res.redirect("/game");
 };
 
+// Modify current id name and content, Modify this X? near Delete this X?
+
 export { getIndex, getJson, getAdd, postAdd, postAddRating, getGame, deleteGame };
