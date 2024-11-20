@@ -214,9 +214,23 @@ const deleteGame = async (req, res) => {
 
 const getUpdate = async (req, res) => {
     const game = await getQuery.getElement("game", "id", req.params.id);
+    const genres = await getQuery.getElements("genre");
+    const gameGenres = await getQuery.getGameFromGameId(req.params.id);
+    const developers = await getQuery.getElements("developer");
+    const publishers = await getQuery.getElements("publisher");
+    const gameDevelopers = await getQuery.getGameDeveloper(req.params.id);
+    const gamePublishers = await getQuery.getGamePublisher("publisher_id", req.params.id);
+    const cost = await getQuery.getCost(req.params.id);
 
     res.status(200).render("form/update/gameForm", {
         game: game[0],
+        genres: genres,
+        gameGenres: gameGenres,
+        developers: developers,
+        gameDevelopers: gameDevelopers,
+        publishers: publishers,
+        gamePublishers: gamePublishers,
+        cost: cost[0].cost,
     });
 };
 
@@ -233,13 +247,7 @@ const postUpdate = [
 
         const { game_name } = req.body;
 
-        await updateQuery.updateElement(
-            "game",
-            "game_name",
-            game_name,
-            "id",
-            req.params.id,
-        );
+        await updateQuery.updateElement("game", "game_name", game_name, "id", req.params.id);
 
         res.redirect("/game");
     },

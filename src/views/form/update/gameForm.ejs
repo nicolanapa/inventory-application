@@ -21,23 +21,34 @@
 
         <form action="/game/add" method="POST">
             <label for="game-name">Game Name: </label>
-            <input type="text" name="game_name" id="game-name" required>
+            <input type="text" name="game_name" id="game-name" value="<%= game.game_name %>" required>
 
             <fieldset>
                 <legend for="game-genre">Game Genre: </legend>
+                <%console.log(gameGenres); %>
                 <% for (let i = 0; i < genres.length; i++) { %>
-                    <input type="checkbox" name="game_genre" value="<%= i + 1 %>">
+                    <input type="checkbox" name="game_genre" value="<%= i + 1 %>" 
+                        <% for (let i2 = 0; i2 < gameGenres.length; i2++) { %> 
+                            <% if (gameGenres[i2].genre_id === i + 1) { %>
+                                checked
+                            <% } %>
+                        <% } %>>
                     <label for="<%= i + 1 %>"><%= genres[i].game_genre %></label>
                 <% } %>
             </fieldset>
 
             <label for="game-cost">Game Cost: </label>
-            <input type="number" name="cost" id="game-cost" step="0.01" required>
+            <input type="number" name="cost" id="game-cost" step="0.01" value="<%= cost %>" required>
 
             <fieldset>
                 <legend for="game-developer">Game Developers: </legend>
                 <% for (let i = 0; i < developers.length; i++) { %>
-                    <input type="checkbox" name="developer_name" value="<%= i + 1 %>">
+                    <input type="checkbox" name="developer_name" value="<%= i + 1 %>"
+                        <% for (let i2 = 0; i2 < gameDevelopers.length; i2++) { %> 
+                            <% if (gameDevelopers[i2].developer_id === i + 1) { %>
+                                checked
+                            <% } %>
+                        <% } %>>
                     <label for="<%= i + 1 %>"><%= developers[i].developer_name %></label>
                 <% } %>
             </fieldset>
@@ -45,7 +56,10 @@
             <label for="game-genre">Game Publisher: </label>
             <select name="publisher_name" id="game-genre" required>
                 <% for (let i = 0; i < publishers.length; i++) { %>
-                    <option value="<%= i + 1 %>"><%= publishers[i].publisher_name %></option>
+                    <option value="<%= i + 1 %>" 
+                        <% if (gamePublishers[0].publisher_id === i + 1) { %> 
+                            selected
+                        <% } %>><%= publishers[i].publisher_name %></option>
                 <% } %>
             </select>
             
