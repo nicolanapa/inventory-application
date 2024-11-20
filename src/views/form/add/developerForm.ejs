@@ -3,13 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Genre Form</title>
+        <title>Developer Form</title>
         
         <link rel="stylesheet" href="../../styles/style.css">
         <link rel="stylesheet" href="../../styles/form.css">
     </head>
     <body>
-        <%- include("../partials/header") %>
+        <%- include("../../partials/header") %>
 
         <% if (locals.errors) { %>
             <ul>
@@ -19,13 +19,11 @@
             </ul>
         <% } %>
 
-        <form action="/genre/add" method="POST">
-            <label for="genre-name">Genre Name: </label>
-            <input type="text" name="game_genre" id="game-genre" required>
-
-            <!-- Add genre to already added Games -->
+        <form action="/developer/add" method="POST">
+            <label for="developer-name">Developer Name: </label>
+            <input type="text" name="developer_name" id="developer-name" required>
             
-            <button type="submit">Submit this Game</button>
+            <button type="submit">Submit this Developer</button>
         </form>
     </body>
 </html>

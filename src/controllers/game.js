@@ -22,7 +22,7 @@ const getAdd = async (req, res) => {
     const listOfPublishers = await getQuery.getElements("publisher");
 
     res.set({ "Content-Type": "text/html" });
-    res.status(200).render("form/gameForm", {
+    res.status(200).render("form/add/gameForm", {
         genres: listOfGenres,
         developers: listOfDevelopers,
         publishers: listOfPublishers,
@@ -69,7 +69,7 @@ const postAdd = [
             const listOfDevelopers = await getQuery.getElements("developer");
             const listOfPublishers = await getQuery.getElements("publisher");
 
-            res.status(400).render("form/gameForm", {
+            res.status(400).render("form/add/add/gameForm", {
                 errors: errors.array(),
                 genres: listOfGenres,
                 developers: listOfDevelopers,

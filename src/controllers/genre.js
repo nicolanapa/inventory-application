@@ -23,7 +23,7 @@ const getAdd = async (req, res) => {
     //console.log(games);
 
     res.set({ "Content-Type": "text/html" });
-    res.status(200).render("form/genreForm", {
+    res.status(200).render("form/add/genreForm", {
         games: games,
         genres: listOfGenres,
     });
@@ -48,7 +48,7 @@ const postAdd = [
         if (!errors.isEmpty()) {
             const listOfGenres = await getQuery.getElements("genre");
 
-            res.status(400).render("form/genreForm", {
+            res.status(400).render("form/add/genreForm", {
                 errors: errors.array(),
                 genres: listOfGenres,
             });

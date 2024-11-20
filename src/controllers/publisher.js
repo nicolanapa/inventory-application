@@ -18,7 +18,7 @@ const getJson = async (req, res) => {
 
 const getAdd = async (req, res) => {
     res.set({ "Content-Type": "text/html" });
-    res.status(200).render("form/publisherForm");
+    res.status(200).render("form/add/publisherForm");
 };
 
 const addFormValidation = [
@@ -38,7 +38,7 @@ const postAdd = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            res.status(400).render("form/publisherForm", {
+            res.status(400).render("form/add/publisherForm", {
                 errors: errors.array(),
             });
         }
