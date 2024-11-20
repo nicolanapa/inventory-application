@@ -2,6 +2,7 @@ import { body, validationResult } from "express-validator";
 import * as getQuery from "../db/queries/getQueries.js";
 import * as insertQuery from "../db/queries/insertQueries.js";
 import * as deleteQuery from "../db/queries/deleteQueries.js";
+import * as updateQuery from "../db/queries/updateQueries.js";
 
 const getIndex = async (req, res) => {
     const listOfGames = await getQuery.getElements("game");
@@ -211,6 +212,47 @@ const deleteGame = async (req, res) => {
     res.redirect("/game");
 };
 
-// Modify current id name and content, Modify this X? near Delete this X?
+const getUpdate = async (req, res) => {
+    const game = await getQuery.getElement("game", "id", req.params.id);
 
-export { getIndex, getJson, getAdd, postAdd, postAddRating, getGame, deleteGame };
+    res.status(200).render("form/update/gameForm", {
+        game: game[0],
+    });
+};
+
+const postUpdate = [
+    addFormValidation,
+    async (req, res) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(400).render("form/update/gameForm", {
+                errors: errors.array(),
+            });
+        }
+
+        const { game_name } = req.body;
+
+        await updateQuery.updateElement(
+            "game",
+            "game_name",
+            game_name,
+            "id",
+            req.params.id,
+        );
+
+        res.redirect("/game");
+    },
+];
+
+export {
+    getIndex,
+    getJson,
+    getAdd,
+    postAdd,
+    postAddRating,
+    getGame,
+    deleteGame,
+    getUpdate,
+    postUpdate,
+};

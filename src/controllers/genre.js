@@ -2,6 +2,7 @@ import { body, validationResult } from "express-validator";
 import * as getQuery from "../db/queries/getQueries.js";
 import * as insertQuery from "../db/queries/insertQueries.js";
 import * as deleteQuery from "../db/queries/deleteQueries.js";
+import * as updateQuery from "../db/queries/updateQueries.js";
 
 const getIndex = async (req, res) => {
     const listOfGenres = await getQuery.getElements("genre");
@@ -92,4 +93,31 @@ const deleteGenre = async (req, res) => {
     res.redirect("/genre");
 };
 
-export { getIndex, getJson, getAdd, postAdd, getGenre, deleteGenre };
+const getUpdate = async (req, res) => {
+    const genre = await getQuery.getElement("genre", "id", req.params.id);
+
+    res.status(200).render("form/update/genreForm", {
+        genre: genre[0],
+    });
+};
+
+const postUpdate = [
+    addFormValidation,
+    async (req, res) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(400).render("form/update/genreForm", {
+                errors: errors.array(),
+            });
+        }
+
+        const { game_genre } = req.body;
+
+        await updateQuery.updateElement("genre", "game_genre", game_genre, "id", req.params.id);
+
+        res.redirect("/genre");
+    },
+];
+
+export { getIndex, getJson, getAdd, postAdd, getGenre, deleteGenre, getUpdate, postUpdate };

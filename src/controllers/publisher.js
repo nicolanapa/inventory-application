@@ -2,6 +2,7 @@ import { body, validationResult } from "express-validator";
 import * as getQuery from "../db/queries/getQueries.js";
 import * as insertQuery from "../db/queries/insertQueries.js";
 import * as deleteQuery from "../db/queries/deleteQueries.js";
+import * as updateQuery from "../db/queries/updateQueries.js";
 
 const getIndex = async (req, res) => {
     const listOfPublishers = await getQuery.getElements("publisher");
@@ -73,4 +74,37 @@ const deletePublisher = async (req, res) => {
     res.redirect("/publisher");
 };
 
-export { getIndex, getJson, getAdd, postAdd, getPublisher, deletePublisher };
+const getUpdate = async (req, res) => {
+    const publisher = await getQuery.getElement("publisher", "id", req.params.id);
+
+    res.status(200).render("form/update/publisherForm", {
+        publisher: publisher[0],
+    });
+};
+
+const postUpdate = [
+    addFormValidation,
+    async (req, res) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(400).render("form/update/publisherForm", {
+                errors: errors.array(),
+            });
+        }
+
+        const { publisher_name } = req.body;
+
+        await updateQuery.updateElement(
+            "publisher",
+            "publisher_name",
+            publisher_name,
+            "id",
+            req.params.id,
+        );
+
+        res.redirect("/publisher");
+    },
+];
+
+export { getIndex, getJson, getAdd, postAdd, getPublisher, deletePublisher, getUpdate, postUpdate };

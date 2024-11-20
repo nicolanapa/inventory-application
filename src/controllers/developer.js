@@ -2,6 +2,7 @@ import { body, validationResult } from "express-validator";
 import * as getQuery from "../db/queries/getQueries.js";
 import * as insertQuery from "../db/queries/insertQueries.js";
 import * as deleteQuery from "../db/queries/deleteQueries.js";
+import * as updateQuery from "../db/queries/updateQueries.js";
 
 const getIndex = async (req, res) => {
     const listOfDevelopers = await getQuery.getElements("developer");
@@ -52,13 +53,9 @@ const postAdd = [
 ];
 
 const getDeveloper = async (req, res) => {
-    const games = await getQuery.getGameDeveloper("developer_id", req.params.id);
     const developer = await getQuery.getElement("developer", "id", req.params.id);
-    /*const cost = await getQuery.getCost(req.params.id);
-    const ratings = await getQuery.getAllRatings(req.params.id);*/
 
     res.status(200).render("singleView/developerView", {
-        games: games,
         developer: developer[0],
         /*cost: cost[0].cost,
         ratings: ratings,*/
@@ -77,4 +74,37 @@ const deleteDeveloper = async (req, res) => {
     res.redirect("/developer");
 };
 
-export { getIndex, getJson, getAdd, postAdd, getDeveloper, deleteDeveloper };
+const getUpdate = async (req, res) => {
+    const developer = await getQuery.getElement("developer", "id", req.params.id);
+
+    res.status(200).render("form/update/developerForm", {
+        developer: developer[0],
+    });
+};
+
+const postUpdate = [
+    addFormValidation,
+    async (req, res) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(400).render("form/update/developerForm", {
+                errors: errors.array(),
+            });
+        }
+
+        const { developer_name } = req.body;
+
+        await updateQuery.updateElement(
+            "developer",
+            "developer_name",
+            developer_name,
+            "id",
+            req.params.id,
+        );
+
+        res.redirect("/developer");
+    },
+];
+
+export { getIndex, getJson, getAdd, postAdd, getDeveloper, deleteDeveloper, getUpdate, postUpdate };
