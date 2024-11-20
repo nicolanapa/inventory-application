@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Game Form</title>
+        
+        <link rel="stylesheet" href="../../styles/style.css">
+        <link rel="stylesheet" href="../../styles/form.css">
+    </head>
+    <body>
+        <%- include("../../partials/header") %>
+
+        <% if (locals.errors) { %>
+            <ul>
+                <% locals.errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }); %>
+            </ul>
+        <% } %>
+
+        <form action="/game/add" method="POST">
+            <label for="game-name">Game Name: </label>
+            <input type="text" name="game_name" id="game-name" required>
+
+            <fieldset>
+                <legend for="game-genre">Game Genre: </legend>
+                <% for (let i = 0; i < genres.length; i++) { %>
+                    <input type="checkbox" name="game_genre" value="<%= i + 1 %>">
+                    <label for="<%= i + 1 %>"><%= genres[i].game_genre %></label>
+                <% } %>
+            </fieldset>
+
+            <label for="game-cost">Game Cost: </label>
+            <input type="number" name="cost" id="game-cost" step="0.01" required>
+
+            <fieldset>
+                <legend for="game-developer">Game Developers: </legend>
+                <% for (let i = 0; i < developers.length; i++) { %>
+                    <input type="checkbox" name="developer_name" value="<%= i + 1 %>">
+                    <label for="<%= i + 1 %>"><%= developers[i].developer_name %></label>
+                <% } %>
+            </fieldset>
+
+            <label for="game-genre">Game Publisher: </label>
+            <select name="publisher_name" id="game-genre" required>
+                <% for (let i = 0; i < publishers.length; i++) { %>
+                    <option value="<%= i + 1 %>"><%= publishers[i].publisher_name %></option>
+                <% } %>
+            </select>
+            
+            <button type="submit">Submit this Game</button>
+        </form>
+    </body>
+</html>
