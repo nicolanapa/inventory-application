@@ -53,9 +53,13 @@ const postAdd = [
 ];
 
 const getDeveloper = async (req, res) => {
+    const games = await getQuery.getGameDeveloper("developer_id", req.params.id);
     const developer = await getQuery.getElement("developer", "id", req.params.id);
+    /*const cost = await getQuery.getCost(req.params.id);
+    const ratings = await getQuery.getAllRatings(req.params.id);*/
 
     res.status(200).render("singleView/developerView", {
+        games: games,
         developer: developer[0],
         /*cost: cost[0].cost,
         ratings: ratings,*/
