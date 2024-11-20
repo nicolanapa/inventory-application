@@ -15,4 +15,8 @@ developerRouter.get("/:id", developerController.getDeveloper);
 
 developerRouter.get("/delete/:id", developerController.deleteDeveloper);
 
+developerRouter.get("/update/:id", developerController.getUpdate);
+
+developerRouter.post("/update/:id", developerController.postUpdate);
+
 export default developerRouter;

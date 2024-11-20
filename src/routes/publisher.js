@@ -15,4 +15,8 @@ publisherRouter.get("/:id", publisherController.getPublisher);
 
 publisherRouter.get("/delete/:id", publisherController.deletePublisher);
 
+publisherRouter.get("/update/:id", publisherController.getUpdate);
+
+publisherRouter.post("/update/:id", publisherController.postUpdate);
+
 export default publisherRouter;

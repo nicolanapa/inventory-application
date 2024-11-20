@@ -17,4 +17,8 @@ gameRouter.post("/:id/add/rating", gameController.postAddRating);
 
 gameRouter.get("/delete/:id", gameController.deleteGame);
 
+gameRouter.get("/update/:id", gameController.getUpdate);
+
+gameRouter.post("/update/:id", gameController.postUpdate);
+
 export default gameRouter;

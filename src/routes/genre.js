@@ -15,4 +15,8 @@ genreRouter.get("/:id", genreController.getGenre);
 
 genreRouter.get("/delete/:id", genreController.deleteGenre);
 
+genreRouter.get("/update/:id", genreController.getUpdate);
+
+genreRouter.post("/update/:id", genreController.postUpdate);
+
 export default genreRouter;
