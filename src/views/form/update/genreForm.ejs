@@ -21,9 +21,7 @@
 
         <form action="/genre/add" method="POST">
             <label for="genre-name">Genre Name: </label>
-            <input type="text" name="game_genre" id="game-genre" required>
-
-            <!-- Add genre to already added Games -->
+            <input type="text" name="game_genre" id="game-genre" value="<%= genre.game_genre %>" required>
             
             <button type="submit">Submit this Game</button>
         </form>
