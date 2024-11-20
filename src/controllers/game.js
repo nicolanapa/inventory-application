@@ -174,8 +174,8 @@ const postAddRating = [
 const getGame = async (req, res) => {
     const game = await getQuery.getElement("game", "id", req.params.id);
     const genres = await getQuery.getGameFromGameId(req.params.id);
-    const developers = await getQuery.getGameDeveloper(req.params.id);
-    const publishers = await getQuery.getGamePublisher("publisher_id", req.params.id);
+    const developers = await getQuery.getGameDeveloper("game_id", req.params.id);
+    const publishers = await getQuery.getGamePublisher("game_id", req.params.id);
     const cost = await getQuery.getCost(req.params.id);
     //const ratings = await getQuery.getAllRatings(req.params.id);
     const averageRatings = await getQuery.getAverageRatings(req.params.id);
