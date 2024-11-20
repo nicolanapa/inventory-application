@@ -107,8 +107,11 @@ const postUpdate = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            const genre = await getQuery.getElement("genre", "id", req.params.id);
+
             res.status(400).render("form/update/genreForm", {
                 errors: errors.array(),
+                genre: genre[0],
             });
         }
 

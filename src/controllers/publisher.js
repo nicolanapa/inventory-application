@@ -88,8 +88,11 @@ const postUpdate = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            const publisher = await getQuery.getElement("publisher", "id", req.params.id);
+
             res.status(400).render("form/update/publisherForm", {
                 errors: errors.array(),
+                publisher: publisher[0],
             });
         }
 

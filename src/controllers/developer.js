@@ -92,8 +92,11 @@ const postUpdate = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            const developer = await getQuery.getElement("developer", "id", req.params.id);
+
             res.status(400).render("form/update/developerForm", {
                 errors: errors.array(),
+                developer: developer[0],
             });
         }
 
