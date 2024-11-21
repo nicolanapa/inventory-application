@@ -35,7 +35,7 @@ const addFormValidation = [
         .escape()
         .trim()
         .notEmpty()
-        .matches(/^[A-Za-z0-9 .,'!&-]+$/)
+        .matches(/^[A-Za-z0-9 .,'!&-:_]+$/)
         .withMessage("Game Name should only have characters and numbers"),
     body("game_genre")
         .notEmpty()
