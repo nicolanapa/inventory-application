@@ -200,7 +200,10 @@ const getGame = async (req, res) => {
     const averageRatings = await getQuery.getAverageRatings(req.params.id);
 
     res.status(200).render("singleView/gameView", {
-        game: game[0],
+        game:
+            game === undefined || game === null || game.length === 0
+                ? { id: req.params.id, game_name: "Where are we?" }
+                : game[0],
         genres:
             genres === undefined || genres === null || genres.length === 0
                 ? [{ id: 1, game_genre: "Nothing..." }]
@@ -217,9 +220,17 @@ const getGame = async (req, res) => {
             publishers.length === 0
                 ? [{ publisher_name: "No one..." }]
                 : publishers,
-        cost: cost[0].cost,
+        cost:
+            cost[0] === undefined || cost[0] === null || cost.length === 0
+                ? -999
+                : cost[0].cost,
         //ratings: ratings,
-        average: Number.parseFloat(averageRatings[0].avg).toFixed(2),
+        average:
+            averageRatings[0].avg === undefined ||
+            averageRatings[0].avg === null ||
+            averageRatings.length === 0
+                ? -999
+                : Number.parseFloat(averageRatings[0].avg).toFixed(2),
     });
 };
 
