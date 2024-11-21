@@ -14,7 +14,7 @@
             <%- include("partials/add", { path: "publisher", name: "Publisher"}) %>
 
             <h2>Publishers</h2>
-            <ul>
+            <ul class="list-of-things">
                 <% for (let i = 0; i < publishers.length; i++) { %>
                     <li><a href="/publisher/<%= publishers[i].id %>"><%= publishers[i].publisher_name %></a></li>
                 <% } %>

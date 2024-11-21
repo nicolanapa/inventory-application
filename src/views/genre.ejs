@@ -14,7 +14,7 @@
             <%- include("partials/add", { path: "genre", name: "Genre"}) %>
 
             <h2>Genres</h2>
-            <ul>
+            <ul class="list-of-things">
                 <% for (let i = 0; i < genres.length; i++) { %>
                     <li><a href="/genre/<%= genres[i].id %>"><%= genres[i].game_genre %></a></li>
                 <% } %>
