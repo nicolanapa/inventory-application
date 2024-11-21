@@ -29,7 +29,7 @@ const addFormValidation = [
         .withMessage("Developer Name Input can't be Empty")
         .isLength({ min: 1, max: 32 })
         .withMessage("Developer Name should be between lenght 1 and 32")
-        .isAlpha()
+        .matches(/^[A-Za-z0-9 .,'!&-]+$/)
         .withMessage("Developer Name can only have characters"),
 ];
 
@@ -83,6 +83,7 @@ const getUpdate = async (req, res) => {
 
     res.status(200).render("form/update/developerForm", {
         developer: developer[0],
+        id: req.params.id,
     });
 };
 
@@ -97,7 +98,10 @@ const postUpdate = [
             res.status(400).render("form/update/developerForm", {
                 errors: errors.array(),
                 developer: developer[0],
+                id: req.params.id,
             });
+
+            return;
         }
 
         const { developer_name } = req.body;

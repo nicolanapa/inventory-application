@@ -98,6 +98,7 @@ const getUpdate = async (req, res) => {
 
     res.status(200).render("form/update/genreForm", {
         genre: genre[0],
+        id: req.params.id,
     });
 };
 
@@ -112,7 +113,10 @@ const postUpdate = [
             res.status(400).render("form/update/genreForm", {
                 errors: errors.array(),
                 genre: genre[0],
+                id: req.params.id,
             });
+
+            return;
         }
 
         const { game_genre } = req.body;

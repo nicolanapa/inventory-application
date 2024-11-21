@@ -29,7 +29,7 @@ const addFormValidation = [
         .withMessage("Publisher Name Input can't be Empty")
         .isLength({ min: 1, max: 32 })
         .withMessage("Publisher name should be between lenght 1 and 32")
-        .isAlpha()
+        .matches(/^[A-Za-z0-9 .,'!&-]+$/)
         .withMessage("Publisher Name can only have characters"),
 ];
 
@@ -42,6 +42,8 @@ const postAdd = [
             res.status(400).render("form/add/publisherForm", {
                 errors: errors.array(),
             });
+
+            return;
         }
 
         const { publisher_name } = req.body;
@@ -79,6 +81,7 @@ const getUpdate = async (req, res) => {
 
     res.status(200).render("form/update/publisherForm", {
         publisher: publisher[0],
+        id: req.params.id,
     });
 };
 
@@ -93,7 +96,10 @@ const postUpdate = [
             res.status(400).render("form/update/publisherForm", {
                 errors: errors.array(),
                 publisher: publisher[0],
+                id: req.params.id,
             });
+
+            return;
         }
 
         const { publisher_name } = req.body;
