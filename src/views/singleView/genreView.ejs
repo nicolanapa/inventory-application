@@ -22,10 +22,12 @@
                     <% } %>
                 </ul>
 
-                <div>
-                    <%- include("../partials/update", { path: "genre", id: genre.id, name: genre.game_genre }) %>
-                    <%- include("../partials/deleteForm", { path: "genre", id: genre.id, name: genre.game_genre }) %>
-                </div>
+                <% if (genre.game_genre !== "Where are we? 404") { %>
+                    <div>
+                        <%- include("../partials/update", { path: "genre", id: genre.id, name: genre.game_genre }) %>
+                        <%- include("../partials/deleteForm", { path: "genre", id: genre.id, name: genre.game_genre }) %>
+                    </div>
+                <% } %>
             </div>
             <!-- Genre not found Handling -->
         </main>

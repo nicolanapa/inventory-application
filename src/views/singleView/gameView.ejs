@@ -18,12 +18,14 @@
 
                 <h3>Ratings</h3>
                 <p><%= average %> <img src="../icons/starIcon.svg" alt="Stars" width="20px" height="auto"></p>
-                <form action="/game/<%= game.id %>/add/rating" method="POST">
-                    <label for="rating">Your rating:</label>
-                    <input type="number" name="rating" id="rating" step="0.5" min="0" max="5" required>
+                <% if (average !== -999) { %>
+                    <form action="/game/<%= game.id %>/add/rating" method="POST">
+                        <label for="rating">Your rating:</label>
+                        <input type="number" name="rating" id="rating" step="0.5" min="0" max="5" required>
 
-                    <button type="submit">Add Rating</button>
-                </form>
+                        <button type="submit">Add Rating</button>
+                    </form>
+                <% } %>
 
                 <h3>Genres</h3>
                 <ul>
@@ -42,10 +44,12 @@
                 <h3>Published By</h3>
                 <p><%= publishers[0].publisher_name %></p>
 
-                <div>
-                    <%- include("../partials/update", { path: "game", id: game.id, name: game.game_name }) %>
-                    <%- include("../partials/deleteForm", { path: "game", id: game.id, name: game.game_name }) %>
-                </div>
+                <% if (game.game_name !== "Where are we? 404" && cost !== -999 && average !== -999) { %>
+                    <div>
+                        <%- include("../partials/update", { path: "game", id: game.id, name: game.game_name }) %>
+                        <%- include("../partials/deleteForm", { path: "game", id: game.id, name: game.game_name }) %>
+                    </div>
+                <% } %>
             </div>
             <!-- Game not found Handling -->
         </main>

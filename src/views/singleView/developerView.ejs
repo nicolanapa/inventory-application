@@ -22,10 +22,12 @@
                     <% } %>
                 </ul>
 
-                <div>
-                    <%- include("../partials/update", { path: "developer", id: developer.id, name: developer.developer_name }) %>
-                    <%- include("../partials/deleteForm", { path: "developer", id: developer.id, name: developer.developer_name }) %>
-                </div>
+                <% if (developer.developer_name !== "Where are we? 404") { %>
+                    <div>
+                        <%- include("../partials/update", { path: "developer", id: developer.id, name: developer.developer_name }) %>
+                        <%- include("../partials/deleteForm", { path: "developer", id: developer.id, name: developer.developer_name }) %>
+                    </div>
+                <% } %>
             </div>
             <!-- Genre not found Handling -->
         </main>

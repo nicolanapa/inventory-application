@@ -22,10 +22,12 @@
                     <% } %>
                 </ul>
 
-                <div>
-                    <%- include("../partials/update", { path: "publisher", id: publisher.id, name: publisher.publisher_name }) %>
-                    <%- include("../partials/deleteForm", { path: "publisher", id: publisher.id, name: publisher.publisher_name }) %>
-                </div>
+                <% if (publisher.publisher_name !== "Where are we? 404") { %>
+                    <div>
+                        <%- include("../partials/update", { path: "publisher", id: publisher.id, name: publisher.publisher_name }) %>
+                        <%- include("../partials/deleteForm", { path: "publisher", id: publisher.id, name: publisher.publisher_name }) %>
+                    </div>
+                <% } %>
             </div>
             <!-- Publisher not found Handling -->
         </main>
