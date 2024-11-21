@@ -95,7 +95,7 @@ const deleteDeveloper = async (req, res) => {
         "developer_id",
         req.params.id,
     );
-    console.log(games);
+
     if (games.length !== 0) {
         await deleteQuery.deleteElement(
             "game_developer",
