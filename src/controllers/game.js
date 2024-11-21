@@ -201,7 +201,10 @@ const getGame = async (req, res) => {
 
     res.status(200).render("singleView/gameView", {
         game: game[0],
-        genres: genres,
+        genres:
+            genres === undefined || genres === null || genres.length === 0
+                ? [{ id: 1, game_genre: "Nothing..." }]
+                : genres,
         developers:
             developers === undefined ||
             developers === null ||
