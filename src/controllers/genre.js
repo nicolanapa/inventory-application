@@ -71,9 +71,18 @@ const getGenre = async (req, res) => {
     const cost = await getQuery.getCost(req.params.id);
     const ratings = await getQuery.getAllRatings(req.params.id);*/
 
-    res.status(200).render("singleView/genreView", {
-        games: games,
-        genre: genre[0],
+    let code =
+        genre === undefined || genre === null || genre.length === 0 ? 404 : 200;
+
+    res.status(code).render("singleView/genreView", {
+        games:
+            games === undefined || games === null || games.length === 0
+                ? [{ id: 1, game_name: "Nothing..." }]
+                : games,
+        genre:
+            genre === undefined || genre === null || genre.length === 0
+                ? { id: 1, game_genre: "Where are we? 404" }
+                : genre[0],
         /*developers: developers,
         publishers: publishers,
         cost: cost[0].cost,
@@ -85,7 +94,11 @@ const deleteGenre = async (req, res) => {
     const games = await getQuery.getGameFromGenreId(req.params.id);
     console.log(games);
     if (games.length !== 0) {
-        await deleteQuery.deleteElement("game_genre", "genre_id", req.params.id);
+        await deleteQuery.deleteElement(
+            "game_genre",
+            "genre_id",
+            req.params.id,
+        );
     }
 
     await deleteQuery.deleteElementId("genre", req.params.id);
@@ -108,7 +121,11 @@ const postUpdate = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            const genre = await getQuery.getElement("genre", "id", req.params.id);
+            const genre = await getQuery.getElement(
+                "genre",
+                "id",
+                req.params.id,
+            );
 
             res.status(400).render("form/update/genreForm", {
                 errors: errors.array(),
@@ -121,10 +138,25 @@ const postUpdate = [
 
         const { game_genre } = req.body;
 
-        await updateQuery.updateElement("genre", "game_genre", game_genre, "id", req.params.id);
+        await updateQuery.updateElement(
+            "genre",
+            "game_genre",
+            game_genre,
+            "id",
+            req.params.id,
+        );
 
         res.redirect("/genre");
     },
 ];
 
-export { getIndex, getJson, getAdd, postAdd, getGenre, deleteGenre, getUpdate, postUpdate };
+export {
+    getIndex,
+    getJson,
+    getAdd,
+    postAdd,
+    getGenre,
+    deleteGenre,
+    getUpdate,
+    postUpdate,
+};

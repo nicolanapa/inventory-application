@@ -46,31 +46,62 @@ const postAdd = [
 
         const { developer_name } = req.body;
 
-        await insertQuery.postElement("developer", "developer_name", developer_name);
+        await insertQuery.postElement(
+            "developer",
+            "developer_name",
+            developer_name,
+        );
 
         res.redirect("/developer");
     },
 ];
 
 const getDeveloper = async (req, res) => {
-    const games = await getQuery.getGameDeveloper("developer_id", req.params.id);
-    const developer = await getQuery.getElement("developer", "id", req.params.id);
+    const games = await getQuery.getGameDeveloper(
+        "developer_id",
+        req.params.id,
+    );
+    const developer = await getQuery.getElement(
+        "developer",
+        "id",
+        req.params.id,
+    );
     /*const cost = await getQuery.getCost(req.params.id);
     const ratings = await getQuery.getAllRatings(req.params.id);*/
 
-    res.status(200).render("singleView/developerView", {
-        games: games,
-        developer: developer[0],
+    let code =
+        developer === undefined || developer === null || developer.length === 0
+            ? 404
+            : 200;
+
+    res.status(code).render("singleView/developerView", {
+        games:
+            games === undefined || games === null || games.length === 0
+                ? [{ id: 1, game_name: "Nothing..." }]
+                : games,
+        developer:
+            developer === undefined ||
+            developer === null ||
+            developer.length === 0
+                ? { id: 1, developer_name: "Where are we? 404" }
+                : developer[0],
         /*cost: cost[0].cost,
         ratings: ratings,*/
     });
 };
 
 const deleteDeveloper = async (req, res) => {
-    const games = await getQuery.getGameDeveloper("developer_id", req.params.id);
+    const games = await getQuery.getGameDeveloper(
+        "developer_id",
+        req.params.id,
+    );
     console.log(games);
     if (games.length !== 0) {
-        await deleteQuery.deleteElement("game_developer", "developer_id", req.params.id);
+        await deleteQuery.deleteElement(
+            "game_developer",
+            "developer_id",
+            req.params.id,
+        );
     }
 
     await deleteQuery.deleteElementId("developer", req.params.id);
@@ -79,7 +110,11 @@ const deleteDeveloper = async (req, res) => {
 };
 
 const getUpdate = async (req, res) => {
-    const developer = await getQuery.getElement("developer", "id", req.params.id);
+    const developer = await getQuery.getElement(
+        "developer",
+        "id",
+        req.params.id,
+    );
 
     res.status(200).render("form/update/developerForm", {
         developer: developer[0],
@@ -93,7 +128,11 @@ const postUpdate = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            const developer = await getQuery.getElement("developer", "id", req.params.id);
+            const developer = await getQuery.getElement(
+                "developer",
+                "id",
+                req.params.id,
+            );
 
             res.status(400).render("form/update/developerForm", {
                 errors: errors.array(),
@@ -118,4 +157,13 @@ const postUpdate = [
     },
 ];
 
-export { getIndex, getJson, getAdd, postAdd, getDeveloper, deleteDeveloper, getUpdate, postUpdate };
+export {
+    getIndex,
+    getJson,
+    getAdd,
+    postAdd,
+    getDeveloper,
+    deleteDeveloper,
+    getUpdate,
+    postUpdate,
+};

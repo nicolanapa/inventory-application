@@ -48,27 +48,58 @@ const postAdd = [
 
         const { publisher_name } = req.body;
 
-        await insertQuery.postElement("publisher", "publisher_name", publisher_name);
+        await insertQuery.postElement(
+            "publisher",
+            "publisher_name",
+            publisher_name,
+        );
 
         res.redirect("/publisher");
     },
 ];
 
 const getPublisher = async (req, res) => {
-    const games = await getQuery.getGamePublisher("publisher_id", req.params.id);
-    const publisher = await getQuery.getElement("publisher", "id", req.params.id);
+    const games = await getQuery.getGamePublisher(
+        "publisher_id",
+        req.params.id,
+    );
+    const publisher = await getQuery.getElement(
+        "publisher",
+        "id",
+        req.params.id,
+    );
 
-    res.status(200).render("singleView/publisherView", {
-        games: games,
-        publisher: publisher[0],
+    let code =
+        publisher === undefined || publisher === null || publisher.length === 0
+            ? 404
+            : 200;
+
+    res.status(code).render("singleView/publisherView", {
+        games:
+            games === undefined || games === null || games.length === 0
+                ? [{ id: 1, game_name: "Nothing..." }]
+                : games,
+        publisher:
+            publisher === undefined ||
+            publisher === null ||
+            publisher.length === 0
+                ? { publisher_name: "Where are we? 404" }
+                : publisher[0],
     });
 };
 
 const deletePublisher = async (req, res) => {
-    const games = await getQuery.getGamePublisher("publisher_id", req.params.id);
+    const games = await getQuery.getGamePublisher(
+        "publisher_id",
+        req.params.id,
+    );
 
     if (games.length !== 0) {
-        await deleteQuery.deleteElement("game_publisher", "publisher_id", req.params.id);
+        await deleteQuery.deleteElement(
+            "game_publisher",
+            "publisher_id",
+            req.params.id,
+        );
     }
 
     await deleteQuery.deleteElementId("publisher", req.params.id);
@@ -77,7 +108,11 @@ const deletePublisher = async (req, res) => {
 };
 
 const getUpdate = async (req, res) => {
-    const publisher = await getQuery.getElement("publisher", "id", req.params.id);
+    const publisher = await getQuery.getElement(
+        "publisher",
+        "id",
+        req.params.id,
+    );
 
     res.status(200).render("form/update/publisherForm", {
         publisher: publisher[0],
@@ -91,7 +126,11 @@ const postUpdate = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            const publisher = await getQuery.getElement("publisher", "id", req.params.id);
+            const publisher = await getQuery.getElement(
+                "publisher",
+                "id",
+                req.params.id,
+            );
 
             res.status(400).render("form/update/publisherForm", {
                 errors: errors.array(),
@@ -116,4 +155,13 @@ const postUpdate = [
     },
 ];
 
-export { getIndex, getJson, getAdd, postAdd, getPublisher, deletePublisher, getUpdate, postUpdate };
+export {
+    getIndex,
+    getJson,
+    getAdd,
+    postAdd,
+    getPublisher,
+    deletePublisher,
+    getUpdate,
+    postUpdate,
+};
