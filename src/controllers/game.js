@@ -199,10 +199,13 @@ const getGame = async (req, res) => {
     //const ratings = await getQuery.getAllRatings(req.params.id);
     const averageRatings = await getQuery.getAverageRatings(req.params.id);
 
-    res.status(200).render("singleView/gameView", {
+    let code =
+        game === undefined || game === null || game.length === 0 ? 404 : 200;
+
+    res.status(code).render("singleView/gameView", {
         game:
             game === undefined || game === null || game.length === 0
-                ? { id: req.params.id, game_name: "Where are we?" }
+                ? { id: req.params.id, game_name: "Where are we? 404" }
                 : game[0],
         genres:
             genres === undefined || genres === null || genres.length === 0
