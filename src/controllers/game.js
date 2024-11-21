@@ -35,7 +35,7 @@ const addFormValidation = [
         .escape()
         .trim()
         .notEmpty()
-        .matches(/^[A-Za-z0-9 .,'!&]+$/)
+        .matches(/^[A-Za-z0-9 .,'!&-]+$/)
         .withMessage("Game Name should only have characters and numbers"),
     body("game_genre")
         .notEmpty()
@@ -57,7 +57,9 @@ const addFormValidation = [
         .if(body("developer_name").isArray({ min: 1 }))
         .isArray({ min: 1 })
         .isInt({ min: 1 }),
-    body("publisher_name").isInt({ min: 1 }).withMessage("A Game Publisher is required"),
+    body("publisher_name")
+        .isInt({ min: 1 })
+        .withMessage("A Game Publisher is required"),
 ];
 
 const postAdd = [
@@ -78,11 +80,16 @@ const postAdd = [
             });
         }
 
-        const { game_name, game_genre, cost, developer_name, publisher_name } = req.body;
+        const { game_name, game_genre, cost, developer_name, publisher_name } =
+            req.body;
 
         await insertQuery.postElement("game", "game_name", game_name);
 
-        let game_id = await getQuery.getElementLike("game", "game_name", game_name);
+        let game_id = await getQuery.getElementLike(
+            "game",
+            "game_name",
+            game_name,
+        );
         game_id = game_id[game_id.length - 1].id;
 
         if (!Array.isArray(game_genre)) {
@@ -105,7 +112,13 @@ const postAdd = [
             }
         }
 
-        await insertQuery.postRelationTable("game_cost", "game_id", "cost", game_id, cost);
+        await insertQuery.postRelationTable(
+            "game_cost",
+            "game_id",
+            "cost",
+            game_id,
+            cost,
+        );
 
         if (!Array.isArray(developer_name)) {
             await insertQuery.postRelationTable(
@@ -174,8 +187,14 @@ const postAddRating = [
 const getGame = async (req, res) => {
     const game = await getQuery.getElement("game", "id", req.params.id);
     const genres = await getQuery.getGameFromGameId(req.params.id);
-    const developers = await getQuery.getGameDeveloper("game_id", req.params.id);
-    const publishers = await getQuery.getGamePublisher("game_id", req.params.id);
+    const developers = await getQuery.getGameDeveloper(
+        "game_id",
+        req.params.id,
+    );
+    const publishers = await getQuery.getGamePublisher(
+        "game_id",
+        req.params.id,
+    );
     const cost = await getQuery.getCost(req.params.id);
     //const ratings = await getQuery.getAllRatings(req.params.id);
     const averageRatings = await getQuery.getAverageRatings(req.params.id);
@@ -186,13 +205,13 @@ const getGame = async (req, res) => {
         developers:
             developers === undefined ||
             developers === null ||
-            developers === undefined ||
-            developers === null ||
             developers.length === 0
                 ? [{ id: 1, developer_name: "No one..." }]
                 : developers,
         publishers:
-            publishers === undefined || publishers === null || publishers.length === 0
+            publishers === undefined ||
+            publishers === null ||
+            publishers.length === 0
                 ? [{ publisher_name: "No one..." }]
                 : publishers,
         cost: cost[0].cost,
@@ -219,18 +238,47 @@ const getUpdate = async (req, res) => {
     const developers = await getQuery.getElements("developer");
     const publishers = await getQuery.getElements("publisher");
     const gameDevelopers = await getQuery.getGameDeveloper(req.params.id);
-    const gamePublishers = await getQuery.getGamePublisher("publisher_id", req.params.id);
+    const gamePublishers = await getQuery.getGamePublisher(
+        "publisher_id",
+        req.params.id,
+    );
     const cost = await getQuery.getCost(req.params.id);
 
     res.status(200).render("form/update/gameForm", {
         game: game[0],
         genres: genres,
-        gameGenres: gameGenres,
-        developers: developers,
-        gameDevelopers: gameDevelopers,
-        publishers: publishers,
-        gamePublishers: gamePublishers,
+        gameGenres:
+            gameGenres === undefined ||
+            gameGenres === null ||
+            gameGenres.length === 0
+                ? [{ id: 1, game_genre: "Nothing..." }]
+                : gameGenres,
+        gameDevelopers:
+            gameDevelopers === gameDevelopers ||
+            gameDevelopers === null ||
+            gameDevelopers.length === 0
+                ? [{ id: 1, developer_name: "No one..." }]
+                : gameDevelopers,
+        gamePublishers:
+            gamePublishers === undefined ||
+            gamePublishers === null ||
+            gamePublishers.length === 0
+                ? [{ id: 1, publisher_name: "No one..." }]
+                : gamePublishers,
+        developers:
+            developers === undefined ||
+            developers === null ||
+            developers.length === 0
+                ? [{ id: 1, developer_name: "No one..." }]
+                : developers,
+        publishers:
+            publishers === undefined ||
+            publishers === null ||
+            publishers.length === 0
+                ? [{ publisher_id: -1, publisher_name: "No one..." }]
+                : publishers,
         cost: cost[0].cost,
+        id: req.params.id,
     });
 };
 
@@ -240,14 +288,103 @@ const postUpdate = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            const game = await getQuery.getElement("game", "id", req.params.id);
+            const genres = await getQuery.getElements("genre");
+            const gameGenres = await getQuery.getGameFromGameId(req.params.id);
+            const developers = await getQuery.getElements("developer");
+            const publishers = await getQuery.getElements("publisher");
+            const gameDevelopers = await getQuery.getGameDeveloper(
+                req.params.id,
+            );
+            const gamePublishers = await getQuery.getGamePublisher(
+                "publisher_id",
+                req.params.id,
+            );
+            const cost = await getQuery.getCost(req.params.id);
+
             res.status(400).render("form/update/gameForm", {
                 errors: errors.array(),
+                game: game[0],
+                genres: genres,
+                gameGenres:
+                    gameGenres === undefined ||
+                    gameGenres === null ||
+                    gameGenres.length === 0
+                        ? [{ id: 1, game_genre: "Nothing..." }]
+                        : gameGenres,
+                gameDevelopers:
+                    gameDevelopers === gameDevelopers ||
+                    gameDevelopers === null ||
+                    gameDevelopers.length === 0
+                        ? [{ id: 1, developer_name: "No one..." }]
+                        : gameDevelopers,
+                gamePublishers:
+                    gamePublishers === undefined ||
+                    gamePublishers === null ||
+                    gamePublishers.length === 0
+                        ? [{ id: 1, publisher_name: "No one..." }]
+                        : gamePublishers,
+                developers:
+                    developers === undefined ||
+                    developers === null ||
+                    developers.length === 0
+                        ? [{ id: 1, developer_name: "No one..." }]
+                        : developers,
+                publishers:
+                    publishers === undefined ||
+                    publishers === null ||
+                    publishers.length === 0
+                        ? [{ publisher_id: -1, publisher_name: "No one..." }]
+                        : publishers,
+                cost: cost[0].cost,
+                id: req.params.id,
             });
+
+            return;
         }
 
-        const { game_name } = req.body;
+        const { game_name, game_genre, cost, developer_name, publisher_name } =
+            req.body;
 
-        await updateQuery.updateElement("game", "game_name", game_name, "id", req.params.id);
+        await updateQuery.updateElement(
+            "game",
+            "game_name",
+            game_name,
+            "id",
+            req.params.id,
+        );
+
+        /*await updateQuery.updateElement(
+            "game_genre",
+            "genre_id",
+            game_name,
+            "id",
+            req.params.id,
+        );*/
+
+        await updateQuery.updateElement(
+            "game_cost",
+            "cost",
+            cost,
+            "game_id",
+            req.params.id,
+        );
+
+        /*await updateQuery.updateElement(
+            "game_developer",
+            "game_name",
+            game_name,
+            "id",
+            req.params.id,
+        );*/
+
+        await updateQuery.updateElement(
+            "game_publisher",
+            "publisher_id",
+            publisher_name,
+            "game_id",
+            req.params.id,
+        );
 
         res.redirect("/game");
     },
