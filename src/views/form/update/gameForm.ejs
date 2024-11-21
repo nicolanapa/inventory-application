@@ -28,11 +28,10 @@
 
                     <fieldset>
                         <legend for="game-genre">Game Genre: </legend>
-                        <%console.log(gameGenres); %>
                         <% for (let i = 0; i < genres.length; i++) { %>
                             <input type="checkbox" name="game_genre" value="<%= i + 1 %>" 
                                 <% for (let i2 = 0; i2 < gameGenres.length; i2++) { %> 
-                                    <% if (gameGenres[i2].genre_id === i + 1) { %>
+                                    <% if (gameGenres[i2].genre_id === genres[i].id) { %>
                                         checked
                                     <% } %>
                                 <% } %>>
@@ -48,8 +47,8 @@
                         <% for (let i = 0; i < developers.length; i++) { %>
                             <input type="checkbox" name="developer_name" value="<%= i + 1 %>"
                                 <% for (let i2 = 0; i2 < gameDevelopers.length; i2++) { %> 
-                                    <% if (gameDevelopers[i2].developer_id === i + 1) { %>
-                                        checked
+                                    <% if (gameDevelopers[i2].developer_id === developers[i].id) { %>
+                                        checked 
                                     <% } %>
                                 <% } %>>
                             <label for="<%= i + 1 %>"><%= developers[i].developer_name %></label>

@@ -254,7 +254,10 @@ const getUpdate = async (req, res) => {
     const gameGenres = await getQuery.getGameFromGameId(req.params.id);
     const developers = await getQuery.getElements("developer");
     const publishers = await getQuery.getElements("publisher");
-    const gameDevelopers = await getQuery.getGameDeveloper(req.params.id);
+    const gameDevelopers = await getQuery.getGameDeveloper(
+        "game_id",
+        req.params.id,
+    );
     const gamePublishers = await getQuery.getGamePublisher(
         "publisher_id",
         req.params.id,
@@ -271,7 +274,7 @@ const getUpdate = async (req, res) => {
                 ? [{ id: 1, game_genre: "Nothing..." }]
                 : gameGenres,
         gameDevelopers:
-            gameDevelopers === gameDevelopers ||
+            gameDevelopers === undefined ||
             gameDevelopers === null ||
             gameDevelopers.length === 0
                 ? [{ id: 1, developer_name: "No one..." }]
