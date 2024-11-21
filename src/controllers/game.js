@@ -343,11 +343,8 @@ const postUpdate = [
             return;
         }
 
-        const {
-            game_name,
-            /*game_genre,*/ cost,
-            /*developer_name,*/ publisher_name,
-        } = req.body;
+        const { game_name, game_genre, cost, developer_name, publisher_name } =
+            req.body;
 
         await updateQuery.updateElement(
             "game",
@@ -357,45 +354,17 @@ const postUpdate = [
             req.params.id,
         );
 
-        /*const gameGenres = await getQuery.getGameFromGameId(req.params.id);
-        let genresArray = [];
+        await deleteQuery.deleteElement("game_genre", "game_id", req.params.id);
 
-        for (let i = 0; i < gameGenres.length; i++) {
-            genresArray.push(gameGenres[i].genre_id);
+        for (let i = 0; i < game_genre.length; i++) {
+            await insertQuery.postRelationTable(
+                "game_genre",
+                "game_id",
+                "genre_id",
+                req.params.id,
+                game_genre[i],
+            );
         }
-        console.log(genresArray, genresArray.includes(5));
-
-        if (genresArray.length === 1) {
-            if (!genresArray.includes(game_genre)) {
-                await insertQuery.postRelationTable(
-                    "game_genre",
-                    "game_id",
-                    "genre_id",
-                    req.params.id,
-                    game_genre,
-                );
-            }
-        } else {
-            for (let i = 0; i < game_genre.length; i++) {
-                if (genresArray.includes(game_genre[i])) {
-                    await insertQuery.postRelationTable(
-                        "game_genre",
-                        "game_id",
-                        "genre_id",
-                        req.params.id,
-                        game_genre[i],
-                    );
-                }
-            }
-        }*/
-
-        /*await updateQuery.updateElement(
-            "game_genre",
-            "genre_id",
-            game_name,
-            "id",
-            req.params.id,
-        );*/
 
         await updateQuery.updateElement(
             "game_cost",
@@ -405,15 +374,21 @@ const postUpdate = [
             req.params.id,
         );
 
-        /*for (let i = 0; i < developer_name.length; i++) {}
-
-        await updateQuery.updateElement(
+        await deleteQuery.deleteElement(
             "game_developer",
-            "game_name",
-            game_name,
-            "id",
+            "game_id",
             req.params.id,
-        );*/
+        );
+
+        for (let i = 0; i < developer_name.length; i++) {
+            await insertQuery.postRelationTable(
+                "game_developer",
+                "game_id",
+                "developer_id",
+                req.params.id,
+                developer_name[i],
+            );
+        }
 
         await updateQuery.updateElement(
             "game_publisher",
