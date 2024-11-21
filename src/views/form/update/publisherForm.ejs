@@ -7,23 +7,28 @@
         
         <link rel="stylesheet" href="../../styles/style.css">
         <link rel="stylesheet" href="../../styles/form.css">
+        <link rel="stylesheet" href="../../styles/singleView.css">
     </head>
     <body>
         <%- include("../../partials/header", { path: "../../" }) %>
 
-        <% if (locals.errors) { %>
-            <ul>
-                <% locals.errors.forEach(error => { %>
-                    <li><%= error.msg %></li>
-                <% }); %>
-            </ul>
-        <% } %>
+        <main>
+            <div>
+                <% if (locals.errors) { %>
+                    <ul>
+                        <% locals.errors.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
 
-        <form action="/publisher/update/<%= id %>" method="POST">
-            <label for="publisher-name">Publisher Name: </label>
-            <input type="text" name="publisher_name" id="publisher-name" value="<%= publisher.publisher_name %>" required>
-            
-            <button type="submit">Submit this Publisher</button>
-        </form>
+                <form action="/publisher/update/<%= id %>" method="POST">
+                    <label for="publisher-name">Publisher Name: </label>
+                    <input type="text" name="publisher_name" id="publisher-name" value="<%= publisher.publisher_name %>" required>
+                    
+                    <button type="submit">Submit this Publisher</button>
+                </form>
+            </div>
+        </main>
     </body>
 </html>

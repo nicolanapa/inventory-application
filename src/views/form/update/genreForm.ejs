@@ -7,23 +7,28 @@
         
         <link rel="stylesheet" href="../../styles/style.css">
         <link rel="stylesheet" href="../../styles/form.css">
+        <link rel="stylesheet" href="../../styles/singleView.css">
     </head>
     <body>
         <%- include("../../partials/header", { path: "../../" }) %>
 
-        <% if (locals.errors) { %>
-            <ul>
-                <% locals.errors.forEach(error => { %>
-                    <li><%= error.msg %></li>
-                <% }); %>
-            </ul>
-        <% } %>
+        <main>
+            <div>
+                <% if (locals.errors) { %>
+                    <ul>
+                        <% locals.errors.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
 
-        <form action="/genre/update/<%= id %>" method="POST">
-            <label for="genre-name">Genre Name: </label>
-            <input type="text" name="game_genre" id="game-genre" value="<%= genre.game_genre %>" required>
-            
-            <button type="submit">Submit this Game</button>
-        </form>
+                <form action="/genre/update/<%= id %>" method="POST">
+                    <label for="genre-name">Genre Name: </label>
+                    <input type="text" name="game_genre" id="game-genre" value="<%= genre.game_genre %>" required>
+                    
+                    <button type="submit">Submit this Game</button>
+                </form>
+            </div>
+        </main>
     </body>
 </html>

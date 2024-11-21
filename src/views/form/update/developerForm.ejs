@@ -7,23 +7,28 @@
         
         <link rel="stylesheet" href="../../styles/style.css">
         <link rel="stylesheet" href="../../styles/form.css">
+        <link rel="stylesheet" href="../../styles/singleView.css">
     </head>
     <body>
         <%- include("../../partials/header", { path: "../../" }) %>
 
-        <% if (locals.errors) { %>
-            <ul>
-                <% locals.errors.forEach(error => { %>
-                    <li><%= error.msg %></li>
-                <% }); %>
-            </ul>
-        <% } %>
+        <main>
+            <div>
+                <% if (locals.errors) { %>
+                    <ul>
+                        <% locals.errors.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
 
-        <form action="/developer/update/<%= id %>" method="POST">
-            <label for="developer-name">Developer Name: </label>
-            <input type="text" name="developer_name" id="developer-name" value="<%= developer.developer_name %>" required>
-            
-            <button type="submit">Submit this Developer</button>
-        </form>
+                <form action="/developer/update/<%= id %>" method="POST">
+                    <label for="developer-name">Developer Name: </label>
+                    <input type="text" name="developer_name" id="developer-name" value="<%= developer.developer_name %>" required>
+                    
+                    <button type="submit">Submit this Developer</button>
+                </form>
+            </div>
+        </main>
     </body>
 </html>
