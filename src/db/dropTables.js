@@ -18,16 +18,18 @@ DROP TABLE game_rating CASCADE;
 async function main() {
     const client = new Client({
         connectionString:
-            "postgresql://" +
-            process.env.DB_USER +
-            ":" +
-            process.env.DB_PASSWORD +
-            "@" +
-            process.env.DB_HOST +
-            ":" +
-            process.env.DB_PORT +
-            "/" +
-            process.env.DB_NAME,
+            process.env.DB_CONNECTION_STRING === ""
+                ? "postgresql://" +
+                  process.env.DB_USER +
+                  ":" +
+                  process.env.DB_PASSWORD +
+                  "@" +
+                  process.env.DB_HOST +
+                  ":" +
+                  process.env.DB_PORT +
+                  "/" +
+                  process.env.DB_NAME
+                : process.env.DB_CONNECTION_STRING,
     });
 
     await client.connect();

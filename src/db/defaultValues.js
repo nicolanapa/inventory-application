@@ -39,16 +39,18 @@ VALUES (1, 0.5), (5, 2), (1, 1), (2, 5), (3, 2), (3, 2.5), (3, 5), (4, 4.5), (6,
 async function main() {
     const client = new Client({
         connectionString:
-            "postgresql://" +
-            process.env.DB_USER +
-            ":" +
-            process.env.DB_PASSWORD +
-            "@" +
-            process.env.DB_HOST +
-            ":" +
-            process.env.DB_PORT +
-            "/" +
-            process.env.DB_NAME,
+            process.env.DB_CONNECTION_STRING === ""
+                ? "postgresql://" +
+                  process.env.DB_USER +
+                  ":" +
+                  process.env.DB_PASSWORD +
+                  "@" +
+                  process.env.DB_HOST +
+                  ":" +
+                  process.env.DB_PORT +
+                  "/" +
+                  process.env.DB_NAME
+                : process.env.DB_CONNECTION_STRING,
     });
 
     await client.connect();

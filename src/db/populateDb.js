@@ -58,16 +58,18 @@ CREATE TABLE IF NOT EXISTS game_rating (
 async function main() {
     const client = new Client({
         connectionString:
-            "postgresql://" +
-            process.env.DB_USER +
-            ":" +
-            process.env.DB_PASSWORD +
-            "@" +
-            process.env.DB_HOST +
-            ":" +
-            process.env.DB_PORT +
-            "/" +
-            process.env.DB_NAME,
+            process.env.DB_CONNECTION_STRING === ""
+                ? "postgresql://" +
+                  process.env.DB_USER +
+                  ":" +
+                  process.env.DB_PASSWORD +
+                  "@" +
+                  process.env.DB_HOST +
+                  ":" +
+                  process.env.DB_PORT +
+                  "/" +
+                  process.env.DB_NAME
+                : process.env.DB_CONNECTION_STRING,
     });
 
     await client.connect();
