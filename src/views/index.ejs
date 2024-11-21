@@ -14,7 +14,7 @@
             <div>
                 <h2>Most played Games</h2>
 
-                <ul class="list-of-games">
+                <ul class="list-of-things">
                     <% games.forEach((game) => {%>
                         <li>
                             <a href="/game/<%= game.id %>"><%= game.game_name %></a>
@@ -40,7 +40,7 @@
             <div>
                 <h2>What you should play</h2>
 
-                <ul class="list-of-games">
+                <ul class="list-of-things">
                     <% let randomGames = []; %>
 
                     <% for (let i = 0; i < games.length; i++) {
