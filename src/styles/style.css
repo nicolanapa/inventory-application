@@ -29,7 +29,7 @@ a:visited {
     color: #fff5f5;
 }
 
-.list-of-games,
+.list-of-things,
 .list-of-genres {
     display: grid;
     gap: 10px;
@@ -38,7 +38,7 @@ a:visited {
     align-items: center;
 }
 
-.list-of-games > li {
+.list-of-things > li {
     background-color: #17171d;
     border-radius: 10px;
     padding: 20px 10px;
@@ -75,28 +75,28 @@ button {
 }
 
 @media only screen and (max-width: 300px) {
-    .list-of-games,
+    .list-of-things,
     .list-of-genres {
         grid-template-columns: repeat(1, 1fr);
     }
 }
 
 @media only screen and (min-width: 300px) and (max-width: 500px) {
-    .list-of-games,
+    .list-of-things,
     .list-of-genres {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media only screen and (min-width: 500px) and (max-width: 800px) {
-    .list-of-games,
+    .list-of-things,
     .list-of-genres {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media only screen and (min-width: 800px) {
-    .list-of-games {
+    .list-of-things {
         grid-template-columns: repeat(4, 1fr);
     }
 
